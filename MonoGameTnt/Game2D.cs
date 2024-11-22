@@ -83,16 +83,12 @@ namespace ThanaNita.MonoGameTnt
             MouseInfo = new MouseInfo(GraphicsDevice, Camera);
             KeyboardInfo = new KeyboardInfo();
             Window.KeyDown += Game2D_KeyDown;
-            //Window.KeyUp += Game2D_KeyUp;
-            //Window.TextInput += Game2D_TextInput;
             CreateGlobal();
 
             base.Initialize(); // This method will call LoadContent().
         }
         protected virtual void Game2D_KeyDown(object sender, InputKeyEventArgs e)
         {
-            //KeyboardInfo.OnKeyPressed(e.Key);
-
             if (ToggleFullScreenKey != null && e.Key == ToggleFullScreenKey.Value)
                 ToggleFullScreen();
 
@@ -105,16 +101,6 @@ namespace ThanaNita.MonoGameTnt
         {
 
         }
-
-/*        private void Game2D_KeyUp(object sender, InputKeyEventArgs e)
-        {
-            KeyboardInfo.OnKeyReleased(e.Key);
-        }
-
-        private void Game2D_TextInput(object sender, TextInputEventArgs e)
-        {
-            KeyboardInfo.OnTextInput(e.Key, e.Character);
-        }*/
 
         private void CreateGlobal()
         {
@@ -132,20 +118,23 @@ namespace ThanaNita.MonoGameTnt
 
         protected virtual void SetDefaultGraphicsStates()
         {
-            GraphicsDevice.RasterizerState = new RasterizerState()
-            {
-                CullMode = CullMode.None,   // For flipping Y Axis
-                // ScissorTestEnable = true    // Currently Not Use. For Clipping Text in UI Using Scissor Rectangle
-            };
-
-            GraphicsDevice.DepthStencilState = DepthStencilState.Default; // Z-buffer may not be relevant
+            // for crisp pixel art and tiled texture
+            GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
             // for transpancy (e.g. in png)
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            //GraphicsDevice.BlendState = BlendStateCustom.Tinting;
 
-            // for crisp pixel art and tiled texture
-            GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
+            // Z-buffer may not be relevant
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+            GraphicsDevice.RasterizerState = new RasterizerState()
+            {
+                // For flipped Triangle (and when flipping Y Axis)
+                CullMode = CullMode.None,
+
+                // Currently Not Use. For Clip UI Using Scissor Rectangle
+                // ScissorTestEnable = true 
+            };
         }
 
         protected virtual void CameraSetup()
