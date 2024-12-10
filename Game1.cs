@@ -7,17 +7,39 @@ namespace CP215Project
 {
     public class Game1 : Game2D
     {
-            protected override void LoadContent()
-            {
-                //TestAladdin();
-                //TestGirl();
-                //All.Add(new Aladdin(ScreenSize / 2));
-                All.Add(new Monstor(ScreenSize / 2));
-                //All.Add(new Exercise(ScreenSize / 4));
-                //All.Add(new Fireball(new Vector2(1000, 180)));
-            }
+        protected override void LoadContent()
+        {
+            //TestAladdin();
+            //TestGirl();
+            //All.Add(new Aladdin(ScreenSize / 2));
+            //All.Add(new Monstor(ScreenSize / 2));
+            //All.Add(new Exercise(ScreenSize / 4));
+            //All.Add(new Fireball(new Vector2(1000, 180)));
+            BackgroundColor = Color.LightGray;
 
-            private void TestAladdin()
+            var builder = new TileMapBuilder();
+            // 1. tileMap1
+            var tileMap1 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
+                                                "map1_Floor.csv");
+            var tileMap2 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
+                                                "map1_Walls.csv");
+            var tileMap3 = builder.CreateSimple("decorative.png", new Vector2(16, 16), 16, 16,
+                                                "map1_Decoration.csv");
+            var visual = new Actor() { Position = new Vector2(200, 200) };
+            visual.Scale = new Vector2(3, 3);
+            visual.Add(tileMap1);
+            visual.Add(tileMap2);
+            visual.Add(tileMap3);
+
+            var sorter = new TileMapSorter();
+            sorter.Add(tileMap1);
+            sorter.Add(tileMap2);
+            sorter.Add(tileMap3);
+            visual.Add(sorter);
+
+            All.Add(visual);
+        }
+        private void TestAladdin()
             {
                 var size = new Vector2(45, 45);
                 var sprite = new SpriteActor();
@@ -32,7 +54,7 @@ namespace CP215Project
                 var animation = new Animation(sprite, 0.5f, regions1d);
                 sprite.AddAction(animation);
             }
-
+     
             private void TestGirl()
             {
                 var size = new Vector2(60, 60);
