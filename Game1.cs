@@ -17,7 +17,7 @@ namespace CP215Project
             //All.Add(new Fireball(new Vector2(1000, 180)));
             BackgroundColor = Color.LightGray;
 
-            var builder = new TileMapBuilder();
+            /*var builder = new TileMapBuilder();
             // 1. tileMap1
             var tileMap1 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
                                                 "map1_Floor.csv");
@@ -37,7 +37,10 @@ namespace CP215Project
             sorter.Add(tileMap3);
             visual.Add(sorter);
 
-            All.Add(visual);
+            All.Add(visual);*/
+            Actor room2;
+            room2 = new Room2();
+            All.Add(room2);
         }
         private void TestAladdin()
             {
