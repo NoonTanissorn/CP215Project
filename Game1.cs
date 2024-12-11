@@ -38,9 +38,17 @@ namespace CP215Project
             visual.Add(sorter);
 
             All.Add(visual);*/
-            Actor room2;
+
+            /*Actor room2;
             room2 = new Room2();
-            All.Add(room2);
+            All.Add(room2);*/
+            Actor room4;
+            room4 = new Room4();
+            All.Add(room4);
+            /*Actor room6;
+            room6 = new Room6();
+            All.Add(room6);*/
+
         }
         private void TestAladdin()
             {
