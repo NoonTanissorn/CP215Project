@@ -16,35 +16,15 @@ namespace CP215Project
             //All.Add(new Exercise(ScreenSize / 4));
             //All.Add(new Fireball(new Vector2(1000, 180)));
             BackgroundColor = Color.LightGray;
-
-            /*var builder = new TileMapBuilder();
-            // 1. tileMap1
-            var tileMap1 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
-                                                "map1_Floor.csv");
-            var tileMap2 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
-                                                "map1_Walls.csv");
-            var tileMap3 = builder.CreateSimple("decorative.png", new Vector2(16, 16), 16, 16,
-                                                "map1_Decoration.csv");
-            var visual = new Actor() { Position = new Vector2(200, 200) };
-            visual.Scale = new Vector2(3, 3);
-            visual.Add(tileMap1);
-            visual.Add(tileMap2);
-            visual.Add(tileMap3);
-
-            var sorter = new TileMapSorter();
-            sorter.Add(tileMap1);
-            sorter.Add(tileMap2);
-            sorter.Add(tileMap3);
-            visual.Add(sorter);
-
-            All.Add(visual);*/
-
+            Actor room12;
+            room12 = new Room12();
+            All.Add(room12);
             /*Actor room2;
             room2 = new Room2();
             All.Add(room2);*/
-            Actor room4;
+            /*Actor room4;
             room4 = new Room4();
-            All.Add(room4);
+            All.Add(room4);*/
             /*Actor room6;
             room6 = new Room6();
             All.Add(room6);*/
