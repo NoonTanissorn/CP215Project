@@ -16,12 +16,12 @@ namespace CP215Project
             //All.Add(new Exercise(ScreenSize / 4));
             //All.Add(new Fireball(new Vector2(1000, 180)));
             BackgroundColor = Color.LightGray;
-            Actor room12;
+            /*Actor room12;
             room12 = new Room12();
-            All.Add(room12);
-            /*Actor room2;
+            All.Add(room12);*/
+            Actor room2;
             room2 = new Room2();
-            All.Add(room2);*/
+            All.Add(room2);
             /*Actor room4;
             room4 = new Room4();
             All.Add(room4);*/
