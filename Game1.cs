@@ -19,6 +19,9 @@ namespace CP215Project
             /*Actor room12;
             room12 = new Room12();
             All.Add(room12);*/
+            /*Actor room1;
+            room1 = new Room1();
+            All.Add(room1);*/
             Actor room2;
             room2 = new Room2();
             All.Add(room2);
