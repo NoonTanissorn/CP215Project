@@ -7,7 +7,7 @@ namespace CP215Project
 {
     public class Game1 : Game2D
     {
-        Actor room1, room2, room4, room6, room12;
+        Actor room1, room2, room4, room6, room12, gameover;
         protected override void LoadContent()
         {
             //TestAladdin();
@@ -76,26 +76,42 @@ namespace CP215Project
             if (actor == null)
                 return;
 
-            if (actor == room1)
+            if (actor == room1 && code == 0)
             {
                 room1.Detach();
                 room1 = null;
                 room12 = new Room12(ExitNotifier);
                 All.Add(room12);
             }
-            else if (actor == room12)
+            else if (actor == room12 && code == 0)
             {
                 room12.Detach();
                 room12 = null;
                 room2 = new Room2(ExitNotifier);
                 All.Add(room2);
             }
-            else if (actor == room2)
+            else if (actor == room2 && code == 0)
             {
                 room2.Detach();
                 room2 = null;
                 /*dragScreen = new DragScreen(ScreenSize, ExitNotifier);
                 All.Add(dragScreen);*/
+            }
+
+            else if (actor == gameover)
+            {
+                gameover.Detach();
+                gameover = null;
+                room1 = new Room1(ExitNotifier);
+                All.Add(room1);
+            }
+
+            else if (code == 1)
+            {
+                actor.Detach();
+                actor = null;
+                gameover = new GameOverScreen(ScreenSize, ExitNotifier);
+                All.Add(gameover);
             }
         }
 

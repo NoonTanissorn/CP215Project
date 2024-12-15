@@ -59,6 +59,11 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 0))
                     ));
+            else if (keyInfo.IsKeyPressed(Keys.PageDown))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 1))
+                    ));
         }
     }
 }
