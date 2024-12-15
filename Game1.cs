@@ -80,6 +80,13 @@ namespace CP215Project
             {
                 room1.Detach();
                 room1 = null;
+                room12 = new Room12(ExitNotifier);
+                All.Add(room12);
+            }
+            else if (actor == room12)
+            {
+                room12.Detach();
+                room12 = null;
                 room2 = new Room2(ExitNotifier);
                 All.Add(room2);
             }
