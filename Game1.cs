@@ -7,6 +7,7 @@ namespace CP215Project
 {
     public class Game1 : Game2D
     {
+        Actor room1, room2, room4, room6, room12;
         protected override void LoadContent()
         {
             //TestAladdin();
@@ -16,21 +17,26 @@ namespace CP215Project
             //All.Add(new Exercise(ScreenSize / 4));
             //All.Add(new Fireball(new Vector2(1000, 180)));
             BackgroundColor = Color.LightGray;
-            /*Actor room12;
+            /*
             room12 = new Room12();
-            All.Add(room12);*/
-            /*Actor room1;
-            room1 = new Room1();
-            All.Add(room1);*/
-            Actor room2;
-            room2 = new Room2();
+            All.Add(room12);
+            */
+            
+            room1 = new Room1(ExitNotifier);
+            All.Add(room1);
+            
+            /*
+             room2 = new Room2(ExitNotifier);
             All.Add(room2);
-            /*Actor room4;
+            */
+            /*
             room4 = new Room4();
-            All.Add(room4);*/
-            /*Actor room6;
+            All.Add(room4);
+            */
+            /*
             room6 = new Room6();
-            All.Add(room6);*/
+            All.Add(room6);
+            */
 
         }
         private void TestAladdin()
@@ -65,6 +71,27 @@ namespace CP215Project
                 sprite.AddAction(animation);
             }
 
+        private void ExitNotifier(Actor actor, int code)
+        {
+            if (actor == null)
+                return;
+
+            if (actor == room1)
+            {
+                room1.Detach();
+                room1 = null;
+                room2 = new Room2(ExitNotifier);
+                All.Add(room2);
+            }
+            else if (actor == room2)
+            {
+                room2.Detach();
+                room2 = null;
+                /*dragScreen = new DragScreen(ScreenSize, ExitNotifier);
+                All.Add(dragScreen);*/
+            }
         }
+
+    }
     }
 

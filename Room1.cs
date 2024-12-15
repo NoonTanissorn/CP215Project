@@ -7,8 +7,11 @@ namespace CP215Project
 {
     public class Room1 : Actor
     {
-        public Room1()
+        ExitNotifier exitNotifier;
+        public Room1(ExitNotifier exitNotifier)
         {
+            this.exitNotifier = exitNotifier;
+
             var builder = new TileMapBuilder();
 
             var tileMap1 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
@@ -44,11 +47,18 @@ namespace CP215Project
 
             Add(visual);
 
-            
+        }
 
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            var keyInfo = GlobalKeyboardInfo.Value;
 
-
-
+            if (keyInfo.IsKeyPressed(Keys.End))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    ));
         }
     }
 }

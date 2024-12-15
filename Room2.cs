@@ -7,7 +7,8 @@ namespace CP215Project
 {
     internal class Room2 : Actor
     {
-        public Room2()
+        ExitNotifier exitNotifier;
+        public Room2(ExitNotifier exitNotifier)
         {
            
 
@@ -81,6 +82,19 @@ namespace CP215Project
             visual.Add(sorter);
 
             Add(visual);
+
+        }
+
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            var keyInfo = GlobalKeyboardInfo.Value;
+
+            if (keyInfo.IsKeyPressed(Keys.End))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    ));
         }
     }
 }
