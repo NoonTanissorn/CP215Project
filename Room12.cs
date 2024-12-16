@@ -8,7 +8,8 @@ namespace CP215Project
 {
     internal class Room12 : Actor
     {
-        public Room12()
+        ExitNotifier exitNotifier;
+        public Room12(ExitNotifier exitNotifier)
         {
             var builder = new TileMapBuilder();
 
@@ -42,7 +43,29 @@ namespace CP215Project
             visual.Add(sorter);
 
             Add(visual);
+            this.exitNotifier = exitNotifier;
         }
+
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            var keyInfo = GlobalKeyboardInfo.Value;
+
+            //Demo เปลี่ยนห้อง
+            if (keyInfo.IsKeyPressed(Keys.End))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    ));
+
+            // Demo Logic ตัวอย่างกรณี Game Over
+            else if (keyInfo.IsKeyPressed(Keys.PageDown))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 1))
+                    ));
+        }
+
     }
 }
 
