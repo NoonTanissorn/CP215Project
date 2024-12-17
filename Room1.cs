@@ -52,7 +52,7 @@ namespace CP215Project
 
             //Password Window
             var passWindow = new PassWindow(new Vector2(500, 800),
-                Color.LightSalmon, Color.LightSteelBlue, 10);
+                Color.Black, Color.White, 10);
             passWindow.Position = new Vector2(500, 200);
             placeholder.Add(passWindow);
             Add(placeholder);
