@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,6 +15,9 @@ namespace CP215Project
         HollowRectActor frame;
         Text text;
         Vector2 currentPosition;
+        private string enteredPassword = string.Empty;
+        public event Action<string> OnPasswordEntered;
+
 
 
         RectF rawRect;
@@ -158,22 +162,40 @@ namespace CP215Project
 
         private void Buttonclear_ButtonClicked(GenericButton button)
         {
-            
+            enteredPassword = string.Empty;
+            ClearText();
         }
 
         private void Buttonenter_ButtonClicked(GenericButton button)
         {
-            
+            OnPasswordEntered?.Invoke(enteredPassword);
         }
 
         private void AddText(string textValue)
         {
+            enteredPassword += textValue;
             var newText = new Text("BlackOpsOne-Regular.ttf", 185, Color.Brown, textValue);
             newText.Position = currentPosition;
             Add(newText);
 
             // Update the current position for the next text
             currentPosition.X += newText.RawSize.X;
+        }
+
+        private void ClearText()
+        {
+            // Remove all text actors
+            foreach (var child in Children.OfType<Text>().ToList())
+            {
+                Remove(child);
+            }
+            currentPosition = new Vector2(35, 10); // Reset position
+        }
+
+        public void ClearEnteredPassword()
+        {
+            enteredPassword = string.Empty;
+            ClearText();
         }
     }
 }

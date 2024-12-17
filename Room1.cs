@@ -9,7 +9,8 @@ namespace CP215Project
     {
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
-
+        private string predefinedPassword = "1234"; // Example password
+        private PassWindow passWindow;
 
         public Room1(ExitNotifier exitNotifier)
         {
@@ -50,16 +51,7 @@ namespace CP215Project
 
             Add(visual);
 
-            //Password Window
-            var passWindow = new PassWindow(new Vector2(500, 800),
-                Color.Black, Color.White, 10);
-            passWindow.Position = new Vector2(500, 200);
-            placeholder.Add(passWindow);
             Add(placeholder);
-
-            
-            
-
         }
 
         public override void Act(float deltaTime)
@@ -85,6 +77,40 @@ namespace CP215Project
             //หน้าจอรหัส
             if(keyInfo.IsKeyPressed(Keys.Space))
                 placeholder.Toggle();
+
+            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
+            {
+                ShowPassWindow();
+            }
+        }
+
+        private void ShowPassWindow()
+        {
+            if (passWindow == null)
+            {
+                passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
+                passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
+                passWindow.Position = new Vector2(500, 200);
+                placeholder.Add(passWindow);
+            }
+            placeholder.Enable = true;
+        }
+
+        private void PassWindow_OnPasswordEntered(string enteredPassword)
+        {
+            if (enteredPassword == predefinedPassword)
+            {
+                // Navigate to Room12
+                exitNotifier(this, 0); // Assuming 0 is the code to navigate to Room12
+            }
+            else
+            {
+                // Password is incorrect, do nothing or show an error message
+                // Demo as hide the pass window and clear the number entered
+                placeholder.Enable = false;
+                passWindow.ClearEnteredPassword();
+
+            }
         }
     }
 }
