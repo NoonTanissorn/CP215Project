@@ -8,6 +8,9 @@ namespace CP215Project
     public class Room1 : Actor
     {
         ExitNotifier exitNotifier;
+        Placeholder placeholder = new Placeholder();
+
+
         public Room1(ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
@@ -47,6 +50,16 @@ namespace CP215Project
 
             Add(visual);
 
+            //Password Window
+            var passWindow = new PassWindow(new Vector2(500, 800),
+                Color.LightSalmon, Color.LightSteelBlue, 10);
+            passWindow.Position = new Vector2(500, 200);
+            placeholder.Add(passWindow);
+            Add(placeholder);
+
+            
+            
+
         }
 
         public override void Act(float deltaTime)
@@ -67,6 +80,11 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+
+
+            //หน้าจอรหัส
+            if(keyInfo.IsKeyPressed(Keys.Space))
+                placeholder.Toggle();
         }
     }
 }

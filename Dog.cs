@@ -40,8 +40,8 @@ namespace CP215Project
             AddAction(states);
         }
 
-        KeyQueue keyQueue = new KeyQueue();
-        LinearMotion motion = LinearMotion.Empty();
+        //KeyQueue keyQueue = new KeyQueue();
+        //LinearMotion motion = LinearMotion.Empty();
         Actor player;
         TileMap tileMap;
         public int[] ProhibitTiles { get; set; }
