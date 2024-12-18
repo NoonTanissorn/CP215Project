@@ -15,10 +15,10 @@ namespace CP215Project
             room12 = new Room12();
             All.Add(room12);
             */
-            
+            /*
             room1 = new Room1(ExitNotifier);
             All.Add(room1);
-            
+            */
             /*
              room2 = new Room2(ExitNotifier);
             All.Add(room2);
@@ -27,11 +27,12 @@ namespace CP215Project
             room4 = new Room4();
             All.Add(room4);
             */
-            /*
+            
             room6 = new Room6();
             All.Add(room6);
-            */
+            
 
+            
             
 
         }

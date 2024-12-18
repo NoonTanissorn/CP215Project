@@ -20,6 +20,9 @@ namespace ThanaNita.MonoGameTnt
             this.textSpeed = textSpeed;
             Restart();
         }
+
+        
+
         public bool Act(float deltaTime)
         {
             if (IsFinished())

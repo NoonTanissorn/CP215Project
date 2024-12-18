@@ -52,6 +52,11 @@ namespace CP215Project
             Add(visual);
 
             Add(placeholder);
+
+            //Message Window
+            var messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
+            messagewindow.Position = new Vector2(100, 830);
+            Add(messagewindow);
         }
 
         public override void Act(float deltaTime)
@@ -112,6 +117,8 @@ namespace CP215Project
 
             }
         }
+
+
     }
 }
 
