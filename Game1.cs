@@ -10,14 +10,14 @@ namespace CP215Project
         Actor room1, room2, room4, room6, room12, gameover;
         protected override void LoadContent()
         {
-        //  cameraMan = new CameraMan(Camera, ScreenSize);
+            cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Black;
             /*
             room12 = new Room12();
             All.Add(room12);
             */
-            /*
-            room1 = new Room1(ExitNotifier);
+            
+            room1 = new Room1(ExitNotifier, cameraMan);
             All.Add(room1);
             */
             /*

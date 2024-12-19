@@ -15,7 +15,7 @@ namespace CP215Project
         private Messagewindow1 messagewindow;
         private bool isMessageWindowVisible = true;
 
-        public Room1(ExitNotifier exitNotifier,CameraMan cameraMan)
+        public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
             this.exitNotifier = exitNotifier;
         //  this.cameraMan = cameraMan;
