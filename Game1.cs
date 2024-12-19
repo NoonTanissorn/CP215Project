@@ -15,10 +15,11 @@ namespace CP215Project
             room12 = new Room12();
             All.Add(room12);
             */
-
-            /*room1 = new Room1(ExitNotifier);
-              All.Add(room1);*/
-
+            /*
+            room1 = new Room1(ExitNotifier);
+            All.Add(room1);*/
+            
+            
             /* room2 = new Room2(ExitNotifier);
                All.Add(room2);*/
 
@@ -27,13 +28,11 @@ namespace CP215Project
 
             /*room4 = new Room4();
             All.Add(room4);*/
-
-            room5 = new Room5(ExitNotifier);
-            All.Add(room5); 
-
-         /*oom6 = new Room6();
-            All.Add(room6);*/
-
+            
+            
+            room6 = new Room6();
+            All.Add(room6);
+            
 
 
 
@@ -50,16 +49,10 @@ namespace CP215Project
             {
                 room1.Detach();
                 room1 = null;
-                room12 = new Room12(ExitNotifier);
-                All.Add(room12);
-            }
-            else if (actor == room12 && code == 0)
-            {
-                room12.Detach();
-                room12 = null;
                 room2 = new Room2(ExitNotifier);
                 All.Add(room2);
             }
+            
             else if (actor == room2 && code == 0)
             {
                 room2.Detach();
