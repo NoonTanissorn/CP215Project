@@ -8,16 +8,18 @@ namespace CP215Project
     public class Game1 : Game2D
     {
         Actor room1, room2, room3,room4, room5,room6, room12, gameover;
+        CameraMan cameraMan;
         protected override void LoadContent()
         {
+            cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Black;
             /*
             room12 = new Room12();
             All.Add(room12);
             */
-            /*
-            room1 = new Room1(ExitNotifier);
-            All.Add(room1);*/
+            
+            room1 = new Room1(ExitNotifier, cameraMan);
+            All.Add(room1);
             
             
             /* room2 = new Room2(ExitNotifier);
@@ -29,10 +31,10 @@ namespace CP215Project
             /*room4 = new Room4();
             All.Add(room4);*/
             
-            
+            /*
             room6 = new Room6();
             All.Add(room6);
-            
+            */
 
 
 
@@ -66,7 +68,7 @@ namespace CP215Project
             {
                 gameover.Detach();
                 gameover = null;
-                room1 = new Room1(ExitNotifier);
+                room1 = new Room1(ExitNotifier, cameraMan);
                 All.Add(room1);
             }
 

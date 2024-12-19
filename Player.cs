@@ -14,7 +14,7 @@ namespace CP215Project
         public Vector2 V => mover.Velocity;
         private KeyboardMover mover;
         public Player(Actor all, Vector2 screenSize)
-            : base(Color.Blue, new Vector2(30, 60))
+            //: base(Color.Blue, new Vector2(30, 60))
         {
             Origin = RawSize / 2;
             Position = new Vector2(screenSize.X / 2, screenSize.Y - 100);

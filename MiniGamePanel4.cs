@@ -20,8 +20,9 @@ namespace CP215Project
 
         RectF rawRect;
 
-        public MiniGamePanel4(Vector2 size, Color backgroundColor, Color outlineColor, float outlineWidth = 2, CollisionDetectionUnit collisionDetectionUnit)
+        public MiniGamePanel4(Vector2 size, Color backgroundColor, Color outlineColor, float outlineWidth = 2)
         {
+            /*
             collisionDetectionUnit.AddDetector(1, 2);
 
             for (int i = 0; i < 5000; ++i)
@@ -30,6 +31,7 @@ namespace CP215Project
             Add(new Player(this, ScreenSize));
 
             Add(new FPS());
+            */
         }
 
 

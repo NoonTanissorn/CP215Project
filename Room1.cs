@@ -7,14 +7,16 @@ namespace CP215Project
 {
     public class Room1 : Actor
     {
+        CameraMan cameraMan;
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
         private string predefinedPassword = "1234"; // Example password
         private PassWindow passWindow;
 
-        public Room1(ExitNotifier exitNotifier)
+        public Room1(ExitNotifier exitNotifier,CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
+            this.cameraMan = cameraMan;
 
             var builder = new TileMapBuilder();
 
@@ -142,6 +144,7 @@ namespace CP215Project
                 2264,2265];
             dog.ProhibitTiles = phohibiTiles;
             dog.Position = tileMap1.TileCenter(10, 10);
+            dog.Add(cameraMan);
 
             var visual = new Actor() { Position = new Vector2(100, 100) };
             visual.Scale = new Vector2(3, 3);
