@@ -38,7 +38,7 @@ namespace CP215Project
             Add(visual);
 
             //Message Window
-            var messagewindow = new Messagewindow6(new Vector2(1445, 250), Color.Black, Color.White, 10);
+            var messagewindow = new Messagewindow6(new Vector2(1440, 250), Color.Black, Color.White, 10);
             messagewindow.Position = new Vector2(100, 830);
             Add(messagewindow);
         }

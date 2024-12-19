@@ -7,7 +7,13 @@ namespace CP215Project
 {
     public class Game1 : Game2D
     {
-        Actor room1, room2, room4, room6, room12, gameover;
+        Actor room1, room2, room4, room6, room12, gameover, bossfight;
+       
+
+       
+
+        
+
         protected override void LoadContent()
         {
             BackgroundColor = Color.LightGray;
@@ -15,10 +21,10 @@ namespace CP215Project
             room12 = new Room12();
             All.Add(room12);
             */
-            /*
+          
             room1 = new Room1(ExitNotifier);
             All.Add(room1);
-            */
+            
             /*
              room2 = new Room2(ExitNotifier);
             All.Add(room2);
@@ -27,15 +33,23 @@ namespace CP215Project
             room4 = new Room4();
             All.Add(room4);
             */
-            
+            /*
             room6 = new Room6();
             All.Add(room6);
-            
+            */
+            /*
+            var bossfight = new Bossfight(new Vector2(1440, 980), Color.Black, Color.White, 0);
+            bossfight.Position = new Vector2(100, 100);
+            All.Add(bossfight);
+            */
 
-            
-            
+
+
+
 
         }
+
+        
 
         private void ExitNotifier(Actor actor, int code)
         {

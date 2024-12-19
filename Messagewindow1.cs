@@ -14,9 +14,9 @@ namespace CP215Project
         Text text;
         Text name;
 
-        string currentMessage;
-        List<string> messages;
-        int currentIndex;
+        string currentMessage; //ข้อความที่แสดงปัจจุบัน
+        List<string> messages; //บทพูด
+        int currentIndex; //ลำดับข้อความ
 
         RectF rawRect;
 
@@ -26,7 +26,7 @@ namespace CP215Project
             background = new RectangleActor(backgroundColor, rawRect);
             frame = new HollowRectActor(outlineColor, outlineWidth, rawRect.CreateExpand(-outlineWidth / 2));
 
-            // Initialize message list
+            //list บทพูด
             messages = new List<string>
             {
                 "ที่นี่ที่ไหนเนี่ย ใครก็ได้ช่วยด้วย!",
@@ -36,7 +36,7 @@ namespace CP215Project
             };
 
             currentIndex = 0;
-            currentMessage = messages[currentIndex];
+            currentMessage = messages[currentIndex]; //ตั้งให้แสดงข้อความอันแรก
         }
 
         protected override void DrawSelf(DrawTarget target, DrawState state)
@@ -49,28 +49,23 @@ namespace CP215Project
         }
 
         private void DisplayMessage()
-        {
-            // Load sprite and position it
+        {           
             var texture = TextureCache.Get("dogdog.png");
-            var dogdog = new SpriteActor(texture)
-            {
-                Scale = new Vector2(0.4f, 0.4f),
-                Position = new Vector2(30, 30)
-            };
+            var dogdog = new SpriteActor(texture);
+            dogdog.Scale = new Vector2(0.4f, 0.4f);
+            dogdog.Position = new Vector2(30, 30);
+            
             Add(dogdog);
 
-            // Initialize text actor
+            //ถ้าไม่มีข้อความ ก็ให้สร้างข้อความขึ้นมา
             if (text == null)
             {
                 name = new Text("Pridi-Regular.ttf", 50, Color.White, "เจ้าหมา:") { Position = new(300, 40) };
                 text = new Text("Pridi-Regular.ttf", 50, Color.White, "") { Position = new(300, 100) };
                 Add(text);
                 Add(name);
-            }
-
-            // Display current message
-            //text.ClearActions(); // Clear previous animations
-            text.AddAction(new TextAnimation(text, currentMessage, 45)); // Animate the new message
+            }          
+            text.AddAction(new TextAnimation(text, currentMessage, 45)); 
         }
 
         private void HandleInput()
@@ -78,7 +73,7 @@ namespace CP215Project
             var keyInfo = GlobalKeyboardInfo.Value;
             if (keyInfo.IsKeyPressed(Keys.Space))
             {
-                currentIndex++;
+                currentIndex++; //เปลี่ยนเป็นข้อความลำดับถัดไป
 
                 // Check if there are more messages to display
                 if (currentIndex < messages.Count)
@@ -88,7 +83,7 @@ namespace CP215Project
                 }
                 else
                 {
-                    // All messages shown, optionally remove or deactivate the window
+                    //ถ้าข้อความแสดงครบแล้ว ก็ให้ทำการปิดหน้าต่าง
                     if (text != null)
                     {
                         AddAction(new RunAction(() => this.Detach()));

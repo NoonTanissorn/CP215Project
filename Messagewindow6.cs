@@ -11,12 +11,10 @@ namespace CP215Project
     {
         RectangleActor background;
         HollowRectActor frame;
-        Text text;
-        Text speakerText;
-        Text name;
+        Text text; //ข้อความบทพูด         
         SpriteActor characterImage;
 
-        List<(string Speaker, string Message, string ImagePath)> dialogLines;
+        List<(string Message, string ImagePath)> dialogLines;
         int currentIndex;
 
         RectF rawRect;
@@ -27,16 +25,16 @@ namespace CP215Project
             background = new RectangleActor(backgroundColor, rawRect);
             frame = new HollowRectActor(outlineColor, outlineWidth, rawRect.CreateExpand(-outlineWidth / 2));
 
-            // Initialize dialog lines with speaker and message
-            dialogLines = new List<(string Speaker, string Message, string ImagePath)>
+            // list บทพูด
+            dialogLines = new List<(string Message, string ImagePath)>
             {
-                ("Character 1", "ชื่อคน: \nหมาโง่ แกทำให้ฉันดูแย่", "wrong.png"),
-                ("Character 2", "เจ้าหมา: \nแกเป็นใคร อย่าเข้ามานะ!", "dogdog.png"),
-                ("Character 1", "ชื่อคน: \nกำลังหิวอยู่พอดี", "wrong.png"),
-                ("Character 2", "เจ้าหมา: \nครูบาช่วยหมาด้วยยยยยยยยยยยยยยย", "dogdog.png"),
+                ("ชื่อคน: \nหมาโง่ แกทำให้ฉันดูแย่", "wrong.png"),
+                ("เจ้าหมา: \nแกเป็นใคร อย่าเข้ามานะ!", "dogdog.png"),
+                ("ชื่อคน: \nกำลังหิวอยู่พอดี", "wrong.png"),
+                ("เจ้าหมา: \nครูบาช่วยหมาด้วยยยยยยยยยยยยยยย", "dogdog.png"),
             };
 
-            currentIndex = 0;
+            currentIndex = 0; //ลำดับบทพูด
         }
 
         protected override void DrawSelf(DrawTarget target, DrawState state)
@@ -50,38 +48,18 @@ namespace CP215Project
 
         private void DisplayCurrentLine()
         {
-            if (currentIndex >= dialogLines.Count) return;
+            if (currentIndex >= dialogLines.Count) return; //หากข้อความหมดแล้ว currentIndex เกินจำนวน dialogLines จะหยุดทำงาน
 
-            var currentLine = dialogLines[currentIndex];
-
-            
-
-            // Initialize speaker text if not already done
-            if (speakerText == null)
-            {
-                speakerText = new Text("Pridi-Regular.ttf", 50, Color.Yellow, "")
-                {
-                    Position = new Vector2(300, 80)
-                };
-                Add(speakerText);
-            }
-
-            // Initialize dialog text if not already done
+            var currentLine = dialogLines[currentIndex]; //แสดงบทพูดที่อยู่ใน list บทพูด
+        
+            // สร้าง text แสดงข้อความ
             if (text == null)
             {
-                text = new Text("Pridi-Regular.ttf", 50, Color.White, "")
-                {
-                    Position = new Vector2(300, 40)
-                };
+                text = new Text("Pridi-Regular.ttf", 50, Color.White, "");
+                text.Position = new Vector2(300, 40);
                 Add(text);
             }
-
-            // Update speaker and dialog text
-            //speakerText = currentLine.Speaker; // Set the speaker's name
-            //text.ClearActions(); // Clear any previous animations
-            text.AddAction(new TextAnimation(text, currentLine.Message, 45)); // Animate the dialog text
-
-
+            text.AddAction(new TextAnimation(text, currentLine.Message, 45)); 
 
             if (characterImage != null)
             {
@@ -89,11 +67,9 @@ namespace CP215Project
             }
 
             // สร้าง SpriteActor ตัวใหม่สำหรับตัวละครปัจจุบัน
-            characterImage = new SpriteActor(TextureCache.Get(currentLine.ImagePath))
-            {
-                Scale = new Vector2(0.4f, 0.4f), // ปรับขนาดรูปภาพ
-                Position = new Vector2(30, 30) // ตำแหน่งของรูปภาพ
-            };
+            characterImage = new SpriteActor(TextureCache.Get(currentLine.ImagePath));
+            characterImage.Scale = new Vector2(0.4f, 0.4f); // ปรับขนาดรูปภาพ
+            characterImage.Position = new Vector2(30, 30); // ตำแหน่งของรูปภาพ        
             Add(characterImage);
 
         }
@@ -129,18 +105,6 @@ namespace CP215Project
             }
 
             HandleInput();
-        }
-
-        public void CloseWindow()
-        {
-            // Optional: Remove or deactivate the message window
-            if (text != null)
-                text = new Text("Pridi-Regular.ttf", 50, Color.White, ""); // Clear text content
-
-            if (speakerText != null)
-                speakerText = new Text("Pridi-Regular.ttf", 50, Color.White, ""); // Clear speaker text content
-
-            dialogLines.Clear(); // Clear dialog lines
         }
 
         
