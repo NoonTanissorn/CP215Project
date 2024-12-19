@@ -17,16 +17,16 @@ namespace CP215Project
             */
             /*
             room1 = new Room1(ExitNotifier);
-            All.Add(room1);
-            */
-            /*
-             room2 = new Room2(ExitNotifier);
-            All.Add(room2);
-            */
-            /*
-            room4 = new Room4();
-            All.Add(room4);
-            */
+            All.Add(room1);*/
+            
+            
+            /* room2 = new Room2(ExitNotifier);
+            All.Add(room2);*/
+            
+            
+            /*room4 = new Room4();
+            All.Add(room4);*/
+            
             
             room6 = new Room6();
             All.Add(room6);
