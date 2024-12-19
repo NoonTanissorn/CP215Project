@@ -7,39 +7,58 @@ namespace CP215Project
 {
     internal class Room4 : Actor
     {
-        public Room4()
+        ExitNotifier exitNotifier;
+        CameraMan cameraMan;
+        public Room4(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
+            this.exitNotifier = exitNotifier;
+            this.cameraMan = cameraMan;
+
             var builder = new TileMapBuilder();
 
-            var tileMap1 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
-                                                "map4_layer1.csv");
-            var tileMap2 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
-                                                "map4_layer2.csv");
-            var tileMap3 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
-                                                "map4_layer3.csv");
-            var tileMap4 = builder.CreateSimple("mainlevbuild.png", new Vector2(16, 16), 64, 40,
-                                                "map4_layer4.csv");
-            var tileMap5 = builder.CreateSimple("decorative.png", new Vector2(16, 16), 16, 16,
-                                                "map4_layer5.csv");///เลเยอร์ 5 ยังไม่ขึ้น
+            var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+                                                "room4_layer1.csv");
+            var tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+                                                "room4_layer2.csv");
+            var tileMap3 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+                                                "room4_layer3.csv");
 
-            var visual = new Actor() { Position = new Vector2(100, 100) };
-            visual.Scale = new Vector2(3, 3);
+
+            var visual = new Actor() { Position = new Vector2(415, 0) };
+            visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
             visual.Add(tileMap2);
             visual.Add(tileMap3);
-            visual.Add(tileMap4);
-            visual.Add(tileMap5);
 
             var sorter = new TileMapSorter();
             sorter.Add(tileMap1);
             sorter.Add(tileMap2);
             sorter.Add(tileMap3);
-            sorter.Add(tileMap4);
-            visual.Add(tileMap5);
+
 
             visual.Add(sorter);
 
             Add(visual);
+        }
+
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            var keyInfo = GlobalKeyboardInfo.Value;
+
+            //Demo เปลี่ยนห้อง
+            if (keyInfo.IsKeyPressed(Keys.End))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    ));
+
+            // Demo Logic ตัวอย่างกรณี Game Over
+            else if (keyInfo.IsKeyPressed(Keys.PageDown))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 1))
+                    ));
         }
     }
 }

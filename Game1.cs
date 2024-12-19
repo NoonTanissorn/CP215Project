@@ -7,24 +7,19 @@ namespace CP215Project
 {
     public class Game1 : Game2D
     {
-        Actor room1, room2, room4, room6, room12, gameover, bossfight;
-       
-
-       
-
-        
-
+        Actor room1, room2, room4, room6, room12, gameover;
         protected override void LoadContent()
         {
-            BackgroundColor = Color.LightGray;
+        //  cameraMan = new CameraMan(Camera, ScreenSize);
+            BackgroundColor = Color.Black;
             /*
             room12 = new Room12();
             All.Add(room12);
             */
-          
+            /*
             room1 = new Room1(ExitNotifier);
             All.Add(room1);
-            
+            */
             /*
              room2 = new Room2(ExitNotifier);
             All.Add(room2);
@@ -33,19 +28,13 @@ namespace CP215Project
             room4 = new Room4();
             All.Add(room4);
             */
-            /*
+            
             room6 = new Room6();
             All.Add(room6);
-            */
-            /*
-            var bossfight = new Bossfight(new Vector2(1440, 980), Color.Black, Color.White, 0);
-            bossfight.Position = new Vector2(100, 100);
-            All.Add(bossfight);
-            */
+            
 
-
-
-
+            
+            
 
         }
 
@@ -61,22 +50,37 @@ namespace CP215Project
             {
                 room1.Detach();
                 room1 = null;
-                room12 = new Room12(ExitNotifier);
-                All.Add(room12);
-            }
-            else if (actor == room12 && code == 0)
-            {
-                room12.Detach();
-                room12 = null;
-                room2 = new Room2(ExitNotifier);
+                room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
                 All.Add(room2);
             }
+            
             else if (actor == room2 && code == 0)
             {
                 room2.Detach();
                 room2 = null;
-                /*dragScreen = new DragScreen(ScreenSize, ExitNotifier);
-                All.Add(dragScreen);*/
+                room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
+                All.Add(room3);
+            }
+            else if (actor == room3 && code == 0)
+            {
+                room3.Detach();
+                room3 = null;
+                room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
+                All.Add(room4);
+            }
+            else if (actor == room4 && code == 0)
+            {
+                room4.Detach();
+                room4 = null;
+                room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
+                All.Add(room5);
+            }
+            else if (actor == room5 && code == 0)
+            {
+                room5.Detach();
+                room5 = null;
+                room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
+                All.Add(room6);
             }
 
 
@@ -84,7 +88,7 @@ namespace CP215Project
             {
                 gameover.Detach();
                 gameover = null;
-                room1 = new Room1(ExitNotifier);
+                room1 = new Room1(ExitNotifier, cameraMan);
                 All.Add(room1);
             }
 

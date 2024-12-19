@@ -19,6 +19,7 @@ namespace CP215Project
         int currentIndex; //ลำดับข้อความ
 
         RectF rawRect;
+        private bool visible = true;
 
         public Messagewindow1(Vector2 size, Color backgroundColor, Color outlineColor, float outlineWidth = 2)
         {
@@ -37,6 +38,15 @@ namespace CP215Project
 
             currentIndex = 0;
             currentMessage = messages[currentIndex]; //ตั้งให้แสดงข้อความอันแรก
+        }
+        public bool Visible
+        {
+            get => visible;
+            set
+            {
+                visible = value;
+                // Optionally, add logic to hide/show components
+            }
         }
 
         protected override void DrawSelf(DrawTarget target, DrawState state)
@@ -100,6 +110,7 @@ namespace CP215Project
 
         public override void Act(float deltaTime)
         {
+            if (!visible) return;
             base.Act(deltaTime);
 
             // Display the initial message if not already displayed

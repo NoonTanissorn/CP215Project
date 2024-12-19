@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CP215Project", "CP215Project.csproj", "{F48CB912-6900-4858-B253-09DA1FFA8AD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8B24AB0D-1628-433E-8457-CAE18A5D8591}"
+	ProjectSection(SolutionItems) = preProject
+		Room3.cs = Room3.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

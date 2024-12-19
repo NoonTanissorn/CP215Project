@@ -5,33 +5,24 @@ using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
 {
-    public class Room1 : Actor
+    internal class Room5 : Actor
     {
-    //  CameraMan cameraMan;
         ExitNotifier exitNotifier;
-        Placeholder placeholder = new Placeholder();
-        private string predefinedPassword = "1234"; // Example password
-        private PassWindow passWindow;
-        private Messagewindow1 messagewindow;
-        private bool isMessageWindowVisible = true;
-
-        public Room1(ExitNotifier exitNotifier,CameraMan cameraMan)
+        CameraMan cameraMan;
+        public Room5(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
-        //  this.cameraMan = cameraMan;
+            this.cameraMan = cameraMan;
 
             var builder = new TileMapBuilder();
 
             var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
-                                                "room1_layer1.csv");
-            var tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
-                                                "room1_layer2.csv");
-            var tileMap3 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
-                                                "room1_layer3.csv");
+                                                "room5.csv");
 
-            var dog = new Dog(tileMap2);
-            int[] phohibiTiles = ///block1
-                [103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
+            var dog = new Dog(tileMap1);
+            int[] phohibiTiles = [ 
+                ///block1
+                103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
                 401,402,403,404,405,406,407,408,409,410,411,412,413,414,412,416,500,501,502,503,504,505,506,507,
                 508,509,510,511,512,513,514,515,516,517,600,601,602,603,604,605,606,607,608,609,610,611,612,613,
                 614,615,616,617,700,701,702,703,704,705,706,707,708,709,710,711,712,713,714,715,716,717,800,801,
@@ -79,6 +70,7 @@ namespace CP215Project
                 39,40,41,42,43,139,140,141,142,143,239,243,339,343,439,443,539,543,
                 //block12
                 54,55,56,57,154,155,156,157,254,257,354,357,454,457,554,557,654,657,
+
                 //block13
                 739,836,837,839,936,937,939,941,943,944,1036,1037,1039,1041,1043,1044,1136,1137,1139,1141,1143,1144,
 
@@ -144,50 +136,32 @@ namespace CP215Project
                 1964,1965,   1967,1968,   1970,1971,   1973,1974,
                 2164,2165,
                 2264,2265];
+
             dog.ProhibitTiles = phohibiTiles;
-            dog.Position = tileMap1.TileCenter(10, 10);
-            //dog.Add(cameraMan);
+            dog.Position = tileMap1.TileCenter(5, 5);
+
 
             var visual = new Actor() { Position = new Vector2(415, 0) };
             visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
-            visual.Add(tileMap2);
-            visual.Add(tileMap3);
+
+
 
             var sorter = new TileMapSorter();
             sorter.Add(tileMap1);
-            sorter.Add(tileMap2);
-            sorter.Add(tileMap3);
+
+
             sorter.Add(dog);
             visual.Add(sorter);
 
             Add(visual);
 
-            Add(placeholder);
-
-            //Message Window
-            var messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
-            messagewindow.Position = new Vector2(100, 830);
-            Add(messagewindow);
         }
 
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
-
-            /*
-            // Prevent character movement if the message window is visible
-            if (isMessageWindowVisible)
-            {
-                if (keyInfo.IsKeyPressed(Keys.Space))
-                {
-                    isMessageWindowVisible = false;
-                    messagewindow.Visible = false;
-                }
-                return;
-            }
-            */
 
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
@@ -202,48 +176,6 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
-
-
-            //หน้าจอรหัส
-            if(keyInfo.IsKeyPressed(Keys.Space))
-                placeholder.Toggle();
-
-            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
-            {
-                ShowPassWindow();
-            }
         }
-
-        private void ShowPassWindow()
-        {
-            if (passWindow == null)
-            {
-                passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
-                passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
-                passWindow.Position = new Vector2(500, 200);
-                placeholder.Add(passWindow);
-            }
-            placeholder.Enable = true;
-        }
-
-        private void PassWindow_OnPasswordEntered(string enteredPassword)
-        {
-            if (enteredPassword == predefinedPassword)
-            {
-                // Navigate to Room12
-                exitNotifier(this, 0); // Assuming 0 is the code to navigate to Room12
-            }
-            else
-            {
-                // Password is incorrect, do nothing or show an error message
-                // Demo as hide the pass window and clear the number entered
-                placeholder.Enable = false;
-                passWindow.ClearEnteredPassword();
-
-            }
-        }
-
-
     }
 }
-
