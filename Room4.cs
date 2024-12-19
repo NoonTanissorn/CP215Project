@@ -7,8 +7,13 @@ namespace CP215Project
 {
     internal class Room4 : Actor
     {
-        public Room4()
+        ExitNotifier exitNotifier;
+        CameraMan cameraMan;
+        public Room4(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
+            this.exitNotifier = exitNotifier;
+            this.cameraMan = cameraMan;
+
             var builder = new TileMapBuilder();
 
             var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
@@ -34,6 +39,26 @@ namespace CP215Project
             visual.Add(sorter);
 
             Add(visual);
+        }
+
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            var keyInfo = GlobalKeyboardInfo.Value;
+
+            //Demo เปลี่ยนห้อง
+            if (keyInfo.IsKeyPressed(Keys.End))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    ));
+
+            // Demo Logic ตัวอย่างกรณี Game Over
+            else if (keyInfo.IsKeyPressed(Keys.PageDown))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 1))
+                    ));
         }
     }
 }

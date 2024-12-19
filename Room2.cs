@@ -8,9 +8,11 @@ namespace CP215Project
     internal class Room2 : Actor
     {
         ExitNotifier exitNotifier;
-        public Room2(ExitNotifier exitNotifier)
+        CameraMan cameraMan;
+        public Room2(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
-           
+            this.exitNotifier = exitNotifier;
+            this.cameraMan = cameraMan;
 
             var builder = new TileMapBuilder();
 

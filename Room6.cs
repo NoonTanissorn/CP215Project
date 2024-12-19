@@ -7,8 +7,13 @@ namespace CP215Project
 {
     internal class Room6 : Actor
     {
-        public Room6()
+        ExitNotifier exitNotifier;
+        CameraMan cameraMan;
+        public Room6(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
+            this.exitNotifier = exitNotifier;
+            this.cameraMan = cameraMan;
+
             var builder = new TileMapBuilder();
 
             var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,

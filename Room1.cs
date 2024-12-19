@@ -12,8 +12,10 @@ namespace CP215Project
         Placeholder placeholder = new Placeholder();
         private string predefinedPassword = "1234"; // Example password
         private PassWindow passWindow;
+        private Messagewindow1 messagewindow;
+        private bool isMessageWindowVisible = true;
 
-        public Room1(ExitNotifier exitNotifier,CameraMan cameraMan)
+        public Room1(Vector2 screenSize, ExitNotifier exitNotifier,CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
             this.cameraMan = cameraMan;
@@ -164,7 +166,7 @@ namespace CP215Project
             Add(placeholder);
 
             //Message Window
-            var messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
+            messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
             messagewindow.Position = new Vector2(100, 830);
             Add(messagewindow);
         }
@@ -173,6 +175,19 @@ namespace CP215Project
         {
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
+
+            /*
+            // Prevent character movement if the message window is visible
+            if (isMessageWindowVisible)
+            {
+                if (keyInfo.IsKeyPressed(Keys.Space))
+                {
+                    isMessageWindowVisible = false;
+                    messagewindow.Visible = false;
+                }
+                return;
+            }
+            */
 
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
