@@ -11,14 +11,14 @@ namespace CP215Project
         CameraMan cameraMan;
         protected override void LoadContent()
         {
-        //  cameraMan = new CameraMan(Camera, ScreenSize);
+            cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Black;
             /*
             room12 = new Room12();
             All.Add(room12);
             */
             
-            room1 = new Room1(ExitNotifier, cameraMan);
+            room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
             
             
