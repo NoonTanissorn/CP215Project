@@ -19,8 +19,8 @@ namespace CP215Project
                                                 "room4_layer3.csv");
 
 
-            var visual = new Actor() { Position = new Vector2(100, 100) };
-            visual.Scale = new Vector2(3, 3);
+            var visual = new Actor() { Position = new Vector2(415, 0) };
+            visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
             visual.Add(tileMap2);
             visual.Add(tileMap3);

@@ -139,11 +139,11 @@ namespace CP215Project
                 2264,2265];
 
             dog.ProhibitTiles = phohibiTiles;
-            dog.Position = tileMap1.TileCenter(10, 10);
+            dog.Position = tileMap1.TileCenter(5, 5);
 
 
-            var visual = new Actor() { Position = new Vector2(100, 100) };
-            visual.Scale = new Vector2(3, 3);
+            var visual = new Actor() { Position = new Vector2(415, 0) };
+            visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
             visual.Add(tileMap2);
 

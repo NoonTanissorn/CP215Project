@@ -22,8 +22,8 @@ namespace CP215Project
             var tileMap5 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room6_layer5.csv");
 
-            var visual = new Actor() { Position = new Vector2(100, 100) };
-            visual.Scale = new Vector2(3, 3);
+            var visual = new Actor() { Position = new Vector2(415, 0) };
+            visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
             visual.Add(tileMap2);
             visual.Add(tileMap3);
