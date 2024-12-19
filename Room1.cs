@@ -34,8 +34,6 @@ namespace CP215Project
             dog.ProhibitTiles = phohibiTiles;
             dog.Position = tileMap1.TileCenter(10, 10);
 
-            //tile ที่จะมีคำถามคือ 799
-
             var visual = new Actor() { Position = new Vector2(100, 100) };
             visual.Scale = new Vector2(3, 3);
             visual.Add(tileMap1);
