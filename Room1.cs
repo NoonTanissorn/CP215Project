@@ -14,6 +14,7 @@ namespace CP215Project
         private PassWindow passWindow;
         private Messagewindow1 messagewindow;
         private bool isMessageWindowVisible = true;
+        
 
         
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
@@ -213,9 +214,10 @@ namespace CP215Project
             {
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
-
+            
             /*if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
             {
+                placeholder.Toggle();
                 ShowHint(); //กดenter โชว์คำถาม
             }*/
         }
@@ -249,13 +251,9 @@ namespace CP215Project
             }
         }
 
-       /* private void ShowHint() //กล่องข้อความบอกคำใบ้
+        /*private void ShowHint() //กล่องข้อความบอกคำใบ้
         {
-            if (passWindow == null)
-            {
-                
-            }
-            placeholder.Enable = true;
+            
         }*/
 
 
