@@ -98,7 +98,6 @@ namespace CP215Project
             //-------------------------------------------------//
 
 
-
         }
 
         private void fightbutton_ButtonClicked(GenericButton button)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.ComponentModel.DataAnnotations;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
@@ -10,13 +11,12 @@ namespace CP215Project
     //  CameraMan cameraMan;
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
-        private string predefinedPassword = "1234"; // Example password
+        private string predefinedPassword = "4420"; // Example password
         private PassWindow passWindow;
         private Messagewindow1 messagewindow;
-        private bool isMessageWindowVisible = true;
-        
+        //private bool isMessageWindowVisible = true;
+        private HintWindow hintWindow;
 
-        
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
             this.exitNotifier = exitNotifier;
@@ -147,7 +147,7 @@ namespace CP215Project
                 2164,2165,
                 2264,2265];
             dog.ProhibitTiles = phohibiTiles;
-            dog.Position = tileMap1.TileCenter(10, 10);
+            dog.Position = tileMap1.TileCenter(5, 20);
             //dog.Add(cameraMan);
 
             var visual = new Actor() { Position = new Vector2(screenSize.X/5, 0) };
@@ -214,12 +214,12 @@ namespace CP215Project
             {
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
-            
-            /*if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
+
+            if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
             {
                 placeholder.Toggle();
                 ShowHint(); //กดenter โชว์คำถาม
-            }*/
+            }
         }
 
         private void ShowPassWindow() // กดตัวเลข
@@ -239,7 +239,10 @@ namespace CP215Project
             if (enteredPassword == predefinedPassword)
             {
                 // Navigate to Room12
-                exitNotifier(this, 0); // Assuming 0 is the code to navigate to Room12
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    )); // Assuming 0 is the code to navigate to Room12
             }
             else
             {
@@ -251,12 +254,12 @@ namespace CP215Project
             }
         }
 
-        /*private void ShowHint() //กล่องข้อความบอกคำใบ้
+        private void ShowHint() //กล่องข้อความบอกคำใบ้
         {
-            
-        }*/
-
-
+            hintWindow = new HintWindow();
+            hintWindow.Position = new Vector2(500, 200);
+            placeholder.Add(hintWindow);
+        }
     }
 }
 
