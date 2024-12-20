@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Tiled;
+using System.Diagnostics;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
@@ -9,6 +11,8 @@ namespace CP215Project
     {
         ExitNotifier exitNotifier;
         CameraMan cameraMan;
+        private TileMap tileMap1; // Declare tileMap1 as a class field
+        private Dog dog;         // Declare dog as a class field
         public Room5(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
@@ -16,10 +20,10 @@ namespace CP215Project
 
             var builder = new TileMapBuilder();
 
-            var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+            tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room5.csv");
 
-            var dog = new Dog(tileMap1);
+            dog = new Dog(tileMap1);
             int[] phohibiTiles = [ 
                 ///block1
                 103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
@@ -138,7 +142,7 @@ namespace CP215Project
                 2264,2265];
 
             dog.ProhibitTiles = phohibiTiles;
-            dog.Position = tileMap1.TileCenter(5, 5);
+            dog.Position = tileMap1.TileCenter(2, 4);
 
 
             var visual = new Actor() { Position = new Vector2(415, 0) };
@@ -168,7 +172,7 @@ namespace CP215Project
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 0))
-                    ));
+                ));
 
             // Demo Logic ตัวอย่างกรณี Game Over
             else if (keyInfo.IsKeyPressed(Keys.PageDown))
@@ -176,6 +180,28 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+
+            // Get the dog's current position
+            var dogTileIndex = TileIndexFromPosition(dog.Position);
+
+            // Check the tile number at that position
+            var tileNumber = tileMap1.GetTile(dogTileIndex);
+
+            // Exit the game if the tile number is 449
+            if (tileNumber == 449)
+            {
+                AddAction(new SequenceAction(
+                    Actions.FadeOut(0.5f, this),
+                    new RunAction(() => exitNotifier(this, 0))
+                ));
+            }
         }
+            private Vector2i TileIndexFromPosition(Vector2 position)
+            {
+            int x = (int)(position.X / tileMap1.TileSize.X);
+            int y = (int)(position.Y / tileMap1.TileSize.Y);
+            return new Vector2i(x, y);
+            }
     }
+    
 }
