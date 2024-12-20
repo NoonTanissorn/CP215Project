@@ -9,10 +9,19 @@ namespace CP215Project
     {
         ExitNotifier exitNotifier;
         CameraMan cameraMan;
+        Vector2 screenSize;
+
+        Placeholder placeholder = new Placeholder();
+        private MiniGamePanel4 minigame4;
         public Room4(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
+
             this.exitNotifier = exitNotifier;
             this.cameraMan = cameraMan;
+            this.screenSize = screenSize;
+
+
+            
 
             var builder = new TileMapBuilder();
 
@@ -35,15 +44,38 @@ namespace CP215Project
             sorter.Add(tileMap2);
             sorter.Add(tileMap3);
 
+            for (int i = 0; i < 100; ++i)
+            {
+                int imgNo = RandomUtil.Next(2);
+                Vector2 randomPosition = new Vector2(
+                    RandomUtil.Next((int)screenSize.X),
+                    RandomUtil.Next((int)screenSize.Y)
+                );
+
+                if (imgNo == 0)
+                {
+                    var ball = CreateBall(randomPosition);
+                    visual.Add(ball);
+                    sorter.Add(ball);
+                }
+
+                else
+                    visual.Add(CreatePuppy());
+            }
+
 
             visual.Add(sorter);
 
             Add(visual);
+            Add(placeholder);
         }
 
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
+
+
+
             var keyInfo = GlobalKeyboardInfo.Value;
 
             //Demo เปลี่ยนห้อง
@@ -59,6 +91,47 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+
+            /*
+            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
+            {
+                ShowMiniGame(); //กดenter โชว์เครื่องกดรหัส
+            }
+            */
+        }
+
+        private void ShowMiniGame() 
+        {
+            if (minigame4 == null)
+            {
+                minigame4 = new MiniGamePanel4(new Vector2(500, 800));
+                placeholder.Add(minigame4);
+            }
+            placeholder.Enable = true;
+        }
+
+        private Actor CreateBall(Vector2 position)
+        {
+            var texture = TextureCache.Get("Ball.png");
+            var ball = new SpriteActor(texture);
+            ball.Origin = ball.RawSize / 2;
+            ball.Scale = new Vector2(0.5f, 0.5f);
+            ball.Position = position;
+            ball.AddAction(new RandomMover(ball));
+            ball.AddAction(new RotateToAction(1, 360, ball));
+            return ball;
+        }
+
+        private Actor CreatePuppy()
+        {
+            var texture = TextureCache.Get("Puppy.jpg");
+            var actor = new SpriteActor(texture);
+            actor.Origin = actor.RawSize / 2;
+            actor.Scale = new Vector2(0.3f, -0.3f);
+            actor.Position = screenSize / 2;
+            actor.AddAction(new RandomMover(actor));
+            //actor.AddAction(new RotateAction(actor, -90));
+            return actor;
         }
     }
 }

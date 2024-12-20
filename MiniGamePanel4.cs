@@ -17,24 +17,48 @@ namespace CP215Project
         string currentMessage;
         List<string> messages;
         int currentIndex;
+        Vector2 screensize;
 
         RectF rawRect;
-
-        public MiniGamePanel4(Vector2 size, Color backgroundColor, Color outlineColor, float outlineWidth = 2)
+        public MiniGamePanel4(Vector2 screensize)
         {
-            /*
-            collisionDetectionUnit.AddDetector(1, 2);
+            this.screensize = screensize;
+            for (int i = 0; i < 100; ++i)
+            {
+                int imgNo = RandomUtil.Next(2);
+                if (imgNo == 0)
+                    Add(CreateBall());
+                else
+                    Add(CreatePuppy());
+            }
+        }
 
-            for (int i = 0; i < 5000; ++i)
-                Add(new Enemy(ScreenSize / 2));
-
-            Add(new Player(this, ScreenSize));
-
-            Add(new FPS());
-            */
+        private Actor CreateBall()
+        {
+            var texture = TextureCache.Get("Ball.png");
+            var ball = new SpriteActor(texture);
+            ball.Origin = ball.RawSize / 2;
+            //ball.Scale = new Vector2(4, 4);
+            ball.Position = screensize / 2;
+            ball.AddAction(new RandomMover(ball));
+            ball.AddAction(new RotateToAction(1,360, ball));
+            return ball;
+        }
+        private Actor CreatePuppy()
+        {
+            var texture = TextureCache.Get("Puppy.jpg");
+            var actor = new SpriteActor(texture);
+            actor.Origin = actor.RawSize / 2;
+            actor.Scale = new Vector2(0.3f, -0.3f);
+            actor.Position = screensize / 2;
+            actor.AddAction(new RandomMover(actor));
+            //actor.AddAction(new RotateAction(actor, -90));
+            return actor;
         }
 
 
-        
+
+
+
     }
 }
