@@ -9,10 +9,6 @@ namespace CP215Project
     {
         Actor room1, room2, room3, room4, room5, room6, room12, gameover, bossfight;
         CameraMan cameraMan;
-
- 
-        
-
         protected override void LoadContent()
         {
             cameraMan = new CameraMan(Camera, ScreenSize);
@@ -23,10 +19,24 @@ namespace CP215Project
             */
 
 
-            /*
+            
             room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
-            */
+            
+
+            
+            /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room2);*/
+            
+
+            /*room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room3);*/
+
+            /*room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room4);*/
+
+            /*room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room5);*/
 
             /*
              room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
@@ -36,18 +46,12 @@ namespace CP215Project
             room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room4);
             */
-            /*
+
             room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room6);
-            */
-
-            bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
-            bossfight.Position = new Vector2(415, 0);
-            All.Add(bossfight);
-
         }
 
-        
+
 
         private void ExitNotifier(Actor actor, int code)
         {
