@@ -151,7 +151,7 @@ namespace CP215Project
                 2164,2165,
                 2264,2265];
             dog.ProhibitTiles = phohibiTiles;
-            dog.Position = tileMap1.TileCenter(10, 10);
+            dog.Position = tileMap1.TileCenter(5, 20);
             //dog.Add(cameraMan);
 
             var visual = new Actor() { Position = new Vector2(screenSize.X/5, 0) };

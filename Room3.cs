@@ -13,7 +13,7 @@ namespace CP215Project
         private TileMap tileMap2; // Declare tileMap1 as a class field
         private Dog dog;         // Declare dog as a class field
         Placeholder placeholder = new Placeholder();
-        private HintWindow hintWindow;
+        private Mail mail;
 
         public Room3(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
@@ -34,7 +34,7 @@ namespace CP215Project
             int[] phohibiTiles = [ 
                 ///block1
                 103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
-                401,402,403,404,405,406,407,408,409,410,411,412,413,414,412,416,500,501,502,503,504,505,506,507,
+                401,402,403,404,405,406,407,408,409,410,411,412,413,414,412,416,500,501,502,503,504,506,507,
                 508,509,510,511,512,513,514,515,516,517,600,601,602,603,604,605,606,607,608,609,610,611,612,613,
                 614,615,616,617,700,701,702,703,704,705,706,707,708,709,710,711,712,713,714,715,716,717,800,801,
                 802,803,804,805,806,807,808,809,810,811,812,813,814,815,816,817,900,901,902,903,904,905,906,907,
@@ -95,10 +95,10 @@ namespace CP215Project
                 1439,1440,
                 1539,1540,
                 1637,1638,1639,1640,1641,1642,
-                1737,1738,1739,1740,1741,1742,
+                //1737,1738,1739,1740,1741,1742,
                 1823,1837,1838,1839,1840,1841,1842,1843,
-                1936,1937,1938,1939,1940,1941,4942,1943,
-                2037,2038,2039,2040,2041,2042,
+                //1936,1937,1938,1939,1940,1941,4942,1943,
+                //2037,2038,2039,2040,2041,2042,
                 2137,2138,2139,2140,2141,2142,
                 2239,2240,
 
@@ -199,7 +199,7 @@ namespace CP215Project
                 ShowMail();
             }
 
-            if (hintWindow != null && keyInfo.IsKeyPressed(Keys.Space))
+            if (mail != null && keyInfo.IsKeyPressed(Keys.Space))
             {
                 placeholder.Enable = false;
                 AddAction(new SequenceAction(
@@ -207,7 +207,16 @@ namespace CP215Project
                                 new RunAction(() => exitNotifier(this, 0))
                     ));
             }
-            
+            if (tileNumber == 505 || tileNumber == 1738 || tileNumber == 1739 || tileNumber == 1741 ||
+               tileNumber == 1838 || tileNumber == 1839 || tileNumber == 1841 ||
+               tileNumber == 1938 || tileNumber == 1939 || tileNumber == 1941 ||
+               tileNumber == 2038 || tileNumber == 2039 || tileNumber == 2041)
+            {
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 1))
+                    ));
+            }
 
         }
         private Vector2i TileIndexFromPosition(Vector2 position)
@@ -218,9 +227,9 @@ namespace CP215Project
         }
         private void ShowMail() // กดตัวเลข
         {
-            hintWindow = new HintWindow();
-            hintWindow.Position = new Vector2(500, 200);
-            placeholder.Add(hintWindow);
+            mail = new Mail();
+            mail.Position = new Vector2(500, 200);
+            placeholder.Add(mail);
             placeholder.Enable = true;
         }
     }
