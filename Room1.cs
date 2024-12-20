@@ -148,7 +148,7 @@ namespace CP215Project
             dog.Position = tileMap1.TileCenter(10, 10);
             //dog.Add(cameraMan);
 
-            var visual = new Actor() { Position = new Vector2(415, 0) };
+            var visual = new Actor() { Position = new Vector2(screenSize.X/5, 0) };
             visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
             visual.Add(tileMap2);
