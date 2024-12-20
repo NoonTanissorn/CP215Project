@@ -1,14 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Tiled;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
 {
-    internal class Room3: Actor
+    internal class Room3 : Actor
     {
         ExitNotifier exitNotifier;
         CameraMan cameraMan;
+        private TileMap tileMap2; // Declare tileMap1 as a class field
+        private Dog dog;         // Declare dog as a class field
+        Placeholder placeholder = new Placeholder();
+        private HintWindow hintWindow;
+
         public Room3(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
@@ -17,12 +23,14 @@ namespace CP215Project
             var builder = new TileMapBuilder();
 
             var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+                                                "room3_floor.csv");
+            tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room3_tiles.csv");
-            var tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+            var tileMap3 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room3_decoration.csv");
 
 
-            var dog = new Dog(tileMap1);
+            dog = new Dog(tileMap2);
             int[] phohibiTiles = [ 
                 ///block1
                 103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
@@ -148,17 +156,17 @@ namespace CP215Project
             visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
             visual.Add(tileMap2);
-
+            visual.Add(tileMap3);
 
             var sorter = new TileMapSorter();
             sorter.Add(tileMap1);
             sorter.Add(tileMap2);
-
+            sorter.Add(tileMap3);
             sorter.Add(dog);
             visual.Add(sorter);
 
             Add(visual);
-
+            Add(placeholder);
         }
 
         public override void Act(float deltaTime)
@@ -179,6 +187,41 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+
+            // Get the dog's current position
+            var dogTileIndex = TileIndexFromPosition(dog.Position);
+
+            // Check the tile number at that position
+            var tileNumber = tileMap2.GetTile(dogTileIndex);
+
+            if (tileNumber == 2951)
+            {
+                ShowMail();
+            }
+
+            if (hintWindow != null && keyInfo.IsKeyPressed(Keys.Space))
+            {
+                placeholder.Enable = false;
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    ));
+            }
+            
+
+        }
+        private Vector2i TileIndexFromPosition(Vector2 position)
+        {
+            int x = (int)(position.X / tileMap2.TileSize.X);
+            int y = (int)(position.Y / tileMap2.TileSize.Y);
+            return new Vector2i(x, y);
+        }
+        private void ShowMail() // กดตัวเลข
+        {
+            hintWindow = new HintWindow();
+            hintWindow.Position = new Vector2(500, 200);
+            placeholder.Add(hintWindow);
+            placeholder.Enable = true;
         }
     }
 }

@@ -35,7 +35,6 @@ namespace CP215Project
             Add(bossfightmenu);
 
 
-
         }
         
 
