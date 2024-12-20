@@ -243,7 +243,10 @@ namespace CP215Project
             if (enteredPassword == predefinedPassword)
             {
                 // Navigate to Room12
-                exitNotifier(this, 0); // Assuming 0 is the code to navigate to Room12
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    )); // Assuming 0 is the code to navigate to Room12
             }
             else
             {

@@ -23,7 +23,7 @@ namespace CP215Project
         RectF rawRect;
         
 
-        //public override RectF RawRect => rawRect;
+        
 
         public PassWindow(RectF rawRect)
         {
