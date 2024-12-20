@@ -11,33 +11,29 @@ using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
 {
-    public class Bossfight : Actor
+    public class Bossfightmenu : Actor
     {
         RectangleActor background;
         HollowRectActor frame;
         RectF rawRect;
 
-        
 
-        public Bossfight(RectF rawRect)
+
+        public Bossfightmenu(RectF rawRect)
         {
             this.rawRect = rawRect;
         }
 
-        public Bossfight(Vector2 size, Color backgroundColor, Color outlineColor, float outlineWidth = 2) 
+        public Bossfightmenu(Vector2 size, Color backgroundColor, Color outlineColor, float outlineWidth = 2)
         {
             rawRect = new RectF(Vector2.Zero, size);
             background = new RectangleActor(backgroundColor, rawRect);
             frame = new HollowRectActor(outlineColor, outlineWidth, rawRect.CreateExpand(-outlineWidth / 2));
 
-            var bossfightmenu = new Bossfightmenu(new Vector2(300, 300), Color.Green, Color.White, 5);
-            bossfightmenu.Position = new Vector2(0, 400);
-            Add(bossfightmenu);
-
 
 
         }
-        
+
 
         protected override void DrawSelf(DrawTarget target, DrawState state)
         {
@@ -48,6 +44,6 @@ namespace CP215Project
             frame.Draw(target, combine);
         }
 
-        
+
     }
 }
