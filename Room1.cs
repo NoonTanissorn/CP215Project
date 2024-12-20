@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.ComponentModel.DataAnnotations;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
@@ -14,9 +15,12 @@ namespace CP215Project
         private PassWindow passWindow;
         private Messagewindow1 messagewindow;
         private bool isMessageWindowVisible = true;
-        
+        private HintWindow hintWindow;
 
-        
+
+
+
+
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
             this.exitNotifier = exitNotifier;
@@ -215,11 +219,11 @@ namespace CP215Project
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
             
-            /*if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
+            if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
             {
                 placeholder.Toggle();
                 ShowHint(); //กดenter โชว์คำถาม
-            }*/
+            }
         }
 
         private void ShowPassWindow() // กดตัวเลข
@@ -251,10 +255,12 @@ namespace CP215Project
             }
         }
 
-        /*private void ShowHint() //กล่องข้อความบอกคำใบ้
+        private void ShowHint() //กล่องข้อความบอกคำใบ้
         {
-            
-        }*/
+            hintWindow = new HintWindow();
+            hintWindow.Position = new Vector2(500, 200);
+            placeholder.Add(hintWindow);
+        }
 
 
     }
