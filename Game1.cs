@@ -9,6 +9,11 @@ namespace CP215Project
     {
         Actor room1, room2, room3, room4, room5, room6, room12, gameover, bossfight;
         CameraMan cameraMan;
+        public Game1() : base(ViewportAdapterTypes.Boxing, null, new Vector2(1280, 720), false)
+        {
+            // Other initialization code
+        }
+
         protected override void LoadContent()
         {
             cameraMan = new CameraMan(Camera, ScreenSize);
@@ -47,8 +52,10 @@ namespace CP215Project
             All.Add(room4);
             */
 
+            /*
             room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room6);
+            */
         }
 
 
