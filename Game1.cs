@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ThanaNita.MonoGameTnt;
@@ -7,7 +8,7 @@ namespace CP215Project
 {
     public class Game1 : Game2D
     {
-        Actor room1, room2, room3, room4, room5, room6, room12, gameover, bossfight;
+        Actor room1, room2, room3, room4, room5, room6, room12, gameover, bossfight, Test2, battlesystem;
         CameraMan cameraMan;
         public Game1() : base(ViewportAdapterTypes.Boxing, null, new Vector2(1280, 720), false)
         {
@@ -24,15 +25,15 @@ namespace CP215Project
             */
 
 
-            
+            /*
             room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
-            
+            */
 
-            
+
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room2);*/
-            
+
 
             /*room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room3);*/
@@ -56,6 +57,17 @@ namespace CP215Project
             room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room6);
             */
+
+            /*bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
+            bossfight.Position = new Vector2(415, 0);
+            All.Add(bossfight);*/
+            
+            bossfight = new Bossfight();
+            All.Add(bossfight);
+            
+
+            
+
         }
 
 

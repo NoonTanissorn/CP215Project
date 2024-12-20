@@ -29,7 +29,11 @@ namespace ThanaNita.MonoGameTnt
 
         private void Update()
         {
-            var innerSize = new Vector2((value / max) * size.X, size.Y);
+            float v = value;
+            if(v > max) v = max;
+            if(v < 0) v = 0;
+
+            var innerSize = new Vector2((v / max) * size.X, size.Y);
 
             outer = new RectangleActor(outerColor, size);
             inner = new RectangleActor(innerColor, innerSize);
