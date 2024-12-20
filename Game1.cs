@@ -25,10 +25,10 @@ namespace CP215Project
             */
 
 
-            /*
+            
             room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
-            */
+            
 
             
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
