@@ -14,7 +14,7 @@ namespace CP215Project
         private string predefinedPassword = "4420"; // Example password
         private PassWindow passWindow;
         private Messagewindow1 messagewindow;
-        private bool isMessageWindowVisible = true;
+        //private bool isMessageWindowVisible = true;
         private HintWindow hintWindow;
 
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)

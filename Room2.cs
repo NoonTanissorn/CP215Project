@@ -10,7 +10,13 @@ namespace CP215Project
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
         CameraMan cameraMan;
-        private HintWindow hintWindow2;
+        private HintWindow2 hintWindow2;
+
+
+
+
+
+
         public Room2(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
@@ -199,7 +205,7 @@ namespace CP215Project
         }
         private void ShowHint2() //กล่องข้อความบอกคำใบ้
         {
-            hintWindow2 = new HintWindow();
+            hintWindow2 = new HintWindow2();
             hintWindow2.Position = new Vector2(500, 200);
             placeholder.Add(hintWindow2);
         }
