@@ -8,7 +8,9 @@ namespace CP215Project
     internal class Room2 : Actor
     {
         ExitNotifier exitNotifier;
+        Placeholder placeholder = new Placeholder();
         CameraMan cameraMan;
+        private HintWindow hintWindow2;
         public Room2(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
@@ -162,13 +164,22 @@ namespace CP215Project
             visual.Add(sorter);
 
             Add(visual);
-
+            Add(placeholder);
         }
 
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
+
+
+            if (keyInfo.IsKeyPressed(Keys.H))
+            {
+                placeholder.Toggle();
+                ShowHint2();
+            }
+
+
 
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
@@ -183,6 +194,15 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+
+
         }
+        private void ShowHint2() //กล่องข้อความบอกคำใบ้
+        {
+            hintWindow2 = new HintWindow();
+            hintWindow2.Position = new Vector2(500, 200);
+            placeholder.Add(hintWindow2);
+        }
+
     }
 }

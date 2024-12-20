@@ -11,15 +11,11 @@ namespace CP215Project
     //  CameraMan cameraMan;
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
-        private string predefinedPassword = "1234"; // Example password
+        private string predefinedPassword = "4420"; // Example password
         private PassWindow passWindow;
         private Messagewindow1 messagewindow;
         private bool isMessageWindowVisible = true;
         private HintWindow hintWindow;
-
-
-
-
 
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
@@ -218,7 +214,7 @@ namespace CP215Project
             {
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
-            
+
             if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
             {
                 placeholder.Toggle();
@@ -264,8 +260,6 @@ namespace CP215Project
             hintWindow.Position = new Vector2(500, 200);
             placeholder.Add(hintWindow);
         }
-
-
     }
 }
 
