@@ -17,12 +17,25 @@ namespace CP215Project
         {
             this.exitNotifier = exitNotifier;
 
-            var panel = new Panel(screenSize, new Vector2(100, 100), Color.NavajoWhite, Color.LightSalmon, 0);
+            var panel = new Panel(screenSize, new Vector2(100, 100), Color.Black, Color.White, 5);
+            var textureRegion = new TextureRegion(TextureCache.Get("dogdied.jpg"), new RectF(0, 0, 700, 460));
+            var scale = new Vector2(1.5f, 1.5f);
+            var textureActor = new SpriteActor(textureRegion)
+            {
+                Position = new Vector2(450, 150),
+                Scale = scale
+            };
+            var text = new Text("Pridi-Regular.ttf", 100, Color.White, "Game Over")
+            {
+                Position = new Vector2(800, 850)
+            };
             Add(panel);
+            Add(textureActor);
+            Add(text);
             Color = new Color(Color, 0);
-            AddAction(Actions.FadeIn(0.5f, this));
+            AddAction(Actions.FadeIn(3, this));
 
-            song = Song.FromUri("song", new Uri("04-Track-04.ogg", UriKind.Relative));
+            song = Song.FromUri("song", new Uri("Guitar-Nokia.ogg", UriKind.Relative));
             MediaPlayer.Play(song);
 
             //soundEffect = SoundEffect.FromFile("bump.wav");
