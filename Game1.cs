@@ -19,25 +19,29 @@ namespace CP215Project
             */
 
 
-            /*
+
             room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
-            */
 
-            /*
-             room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room2);
-            */
-            /*
-            room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room4);
-            */
+            
+            /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room2);*/
+            
 
-            room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room6);
+            /*room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room3);*/
+
+            /*room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room4);*/
+
+            /*room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room5);*/
+
+            /*room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room6);*/
         }
 
-        
+
 
         private void ExitNotifier(Actor actor, int code)
         {

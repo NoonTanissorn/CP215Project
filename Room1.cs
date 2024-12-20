@@ -15,6 +15,7 @@ namespace CP215Project
         private Messagewindow1 messagewindow;
         private bool isMessageWindowVisible = true;
 
+        
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
             this.exitNotifier = exitNotifier;
@@ -28,7 +29,7 @@ namespace CP215Project
                                                 "room1_layer2.csv");
             var tileMap3 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room1_layer3.csv");
-
+            //จุดที่ไม่ให้ชน
             var dog = new Dog(tileMap2);
             int[] phohibiTiles = ///block1
                 [103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
@@ -165,7 +166,7 @@ namespace CP215Project
 
             Add(placeholder);
 
-            //Message Window
+            //Message Window กล่องข้อความหมามีคิ้วด้านล่าง
             var messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
             messagewindow.Position = new Vector2(100, 830);
             Add(messagewindow);
@@ -205,16 +206,21 @@ namespace CP215Project
 
 
             //หน้าจอรหัส
-            if(keyInfo.IsKeyPressed(Keys.Space))
+            if(keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
                 placeholder.Toggle();
 
             if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
             {
-                ShowPassWindow();
+                ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
+
+            /*if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
+            {
+                ShowHint(); //กดenter โชว์คำถาม
+            }*/
         }
 
-        private void ShowPassWindow()
+        private void ShowPassWindow() // กดตัวเลข
         {
             if (passWindow == null)
             {
@@ -242,6 +248,15 @@ namespace CP215Project
 
             }
         }
+
+       /* private void ShowHint() //กล่องข้อความบอกคำใบ้
+        {
+            if (passWindow == null)
+            {
+                
+            }
+            placeholder.Enable = true;
+        }*/
 
 
     }
