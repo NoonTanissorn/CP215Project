@@ -247,6 +247,15 @@ namespace CP215Project
                     new RunAction(() => exitNotifier(this, 0))
                 ));
             }
+            if (tileNumber == 556 && !soundPlayed)
+            {
+                soundEffect.Play();
+                soundPlayed = true;
+                AddAction(new SequenceAction(
+                    Actions.FadeOut(0.5f, this),
+                    new RunAction(() => exitNotifier(this, 0))
+                ));
+            }
 
             // Check for collision between balls and dog
             /*foreach (var child in Children)
