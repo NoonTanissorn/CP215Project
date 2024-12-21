@@ -16,8 +16,6 @@ namespace CP215Project
             CreateLabels();
         }
 
-        
-
         private void CreateLabels()
         {
             

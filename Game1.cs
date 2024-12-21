@@ -8,7 +8,7 @@ namespace CP215Project
 {
     public class Game1 : Game2D
     {
-        Actor room1, room2, room3, room4, room5, room6, room12, gameover, bossfight, Test2, battlesystem;
+        Actor room1, room2, room3, room4, room5, room6, room12, gameover, bossfight, Test2, battlesystem, start, end;
         CameraMan cameraMan;
         public Game1() : base(ViewportAdapterTypes.Boxing, null, new Vector2(1280, 720), false)
         {
@@ -21,10 +21,10 @@ namespace CP215Project
             cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Pink;
             
-            /*
-            room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room1);
-            */
+            
+            /*room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room1);*/
+            
 
             CollisionDetectionUnit.AddDetector(0, 1);
 
@@ -41,18 +41,23 @@ namespace CP215Project
             /*room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room5);*/
 
-            
+
             /*room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room6);*/
-            
+
             /*
             bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
             bossfight.Position = new Vector2(415, 0);
             All.Add(bossfight);*/
 
+            start = new Start();
+            All.Add(start);
 
-            bossfight = new Bossfight(ExitNotifier);
-            All.Add(bossfight);
+            /*end = new End();
+            All.Add(end);*/
+
+            /*bossfight = new Bossfight(ExitNotifier);
+            All.Add(bossfight);*/
 
 
 

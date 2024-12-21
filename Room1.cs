@@ -194,7 +194,7 @@ namespace CP215Project
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
-            var keyInfo = GlobalKeyboardInfo.Value;
+            
 
             /*
             // Prevent character movement if the message window is visible
