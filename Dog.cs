@@ -14,8 +14,15 @@ namespace CP215Project
     {
         //Animation[] animationArray;
         AnimationStates states;
-        public Dog(TileMap tileMap)
+        //public CollisionObj CollisionObject { get; private set; }
+
+        public Dog(TileMap tileMap) : base()
         {
+
+            var collisionObj = CollisionObj.CreateWithRect(this, 1);
+            collisionObj.OnCollide = OnCollide;
+            Add(collisionObj);
+
             var size = new Vector2(125, 125);
             player = this;
             //sprite.Position = position;
@@ -131,7 +138,17 @@ namespace CP215Project
             return !ProhibitTiles.Contains(tileCode);
         }
 
-
+        public void OnCollide(CollisionObj objB, CollideData data)
+        {
+            /*
+            if (objB.Actor is BouncingBall)
+            {
+                // Handle collision with BouncingBall
+                var room = (Room4)Parent;
+                room.GameOver();
+            }
+            */
+        }
     }
 }
 

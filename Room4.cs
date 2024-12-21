@@ -249,20 +249,18 @@ namespace CP215Project
             }
 
             // Check for collision between balls and dog
-            foreach (var child in Children)
+            /*foreach (var child in Children)
             {
                 if (child is BouncingBall ball)
                 {
-                    if (ball.BoundingBox.IsOverlap(dog.BoundingBox))
+                    if (ball.CollisionObject.Shape.IsCollide(dog.CollisionObject.Shape, out var collideData))
                     {
-                        AddAction(new SequenceAction(
-                            Actions.FadeOut(0.5f, this),
-                            new RunAction(() => exitNotifier(this, 1))
-                        ));
-                        break;
+                        ball.OnCollide(dog.CollisionObject, collideData);
+                        dog.OnCollide(ball.CollisionObject, collideData);
                     }
                 }
             }
+            */
         }
 
         private void ShowMiniGame() 
@@ -278,7 +276,7 @@ namespace CP215Project
         private Actor CreateBall(Vector2 position)
         {
             var texture = TextureCache.Get("Ball.png");
-            var ball = new BouncingBall(texture, tileMap2);
+            var ball = new BouncingBall(texture, tileMap2, this);
             ball.Origin = ball.RawSize / 2;
             ball.Scale = new Vector2(0.5f, 0.5f);
             ball.Position = position;
@@ -288,24 +286,20 @@ namespace CP215Project
             return ball;
         }
 
-        private Actor CreatePuppy()
-        {
-            var texture = TextureCache.Get("Puppy.jpg");
-            var actor = new SpriteActor(texture);
-            actor.Origin = actor.RawSize / 2;
-            actor.Scale = new Vector2(0.3f, -0.3f);
-            actor.Position = screenSize / 2;
-
-            actor.AddAction(new RandomMover(actor));
-            //actor.AddAction(new RotateAction(actor, -90));
-            return actor;
-        }
 
         private Vector2i TileIndexFromPosition(Vector2 position)
         {
             int x = (int)(position.X / tileMap2.TileSize.X);
             int y = (int)(position.Y / tileMap2.TileSize.Y);
             return new Vector2i(x, y);
+        }
+
+        public void GameOver()
+        {
+            AddAction(new SequenceAction(
+                Actions.FadeOut(0.5f, this),
+                new RunAction(() => exitNotifier(this, 1))
+            ));
         }
     }
 }
