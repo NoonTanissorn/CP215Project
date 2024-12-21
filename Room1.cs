@@ -1,6 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CP215Project;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 using System.ComponentModel.DataAnnotations;
 using ThanaNita.MonoGameTnt;
 
@@ -16,6 +20,9 @@ namespace CP215Project
         private Messagewindow1 messagewindow;
         //private bool isMessageWindowVisible = true;
         private HintWindow hintWindow;
+        Song song;
+        SoundEffect soundEffect;
+        SoundEffect soundEffect2;
 
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
@@ -171,6 +178,12 @@ namespace CP215Project
             var messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
             messagewindow.Position = new Vector2(100, 830);
             Add(messagewindow);
+
+            //Sound
+            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
+            soundEffect2 = SoundEffect.FromFile("Flee.wav");
         }
 
         public override void Act(float deltaTime)
@@ -204,12 +217,10 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
-
-
-            //หน้าจอรหัส
+            
             if(keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
                 placeholder.Toggle();
-
+            //หน้าจอรหัส
             if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
             {
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
@@ -217,28 +228,39 @@ namespace CP215Project
 
             if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
             {
-                placeholder.Toggle();
+                soundEffect.Play();
                 ShowHint(); //กดenter โชว์คำถาม
             }
         }
 
         private void ShowPassWindow() // กดตัวเลข
         {
-            if (passWindow == null)
+            if (passWindow != null)
             {
+                placeholder.Remove(passWindow);
+                passWindow = null;
+                placeholder.Enable = false;
+            }
+            else
+            {
+                if (hintWindow != null)
+                {
+                    placeholder.Remove(hintWindow);
+                    hintWindow = null;
+                }
                 passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
                 passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
                 passWindow.Position = new Vector2(500, 200);
                 placeholder.Add(passWindow);
+                placeholder.Enable = true;
             }
-            placeholder.Enable = true;
         }
 
         private void PassWindow_OnPasswordEntered(string enteredPassword)
         {
             if (enteredPassword == predefinedPassword)
             {
-                // Navigate to Room12
+                soundEffect2.Play();
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 0))
@@ -256,10 +278,24 @@ namespace CP215Project
 
         private void ShowHint() //กล่องข้อความบอกคำใบ้
         {
-            hintWindow = new HintWindow();
-            hintWindow.Position = new Vector2(500, 200);
-            placeholder.Add(hintWindow);
+            if (hintWindow != null)
+            {
+                placeholder.Remove(hintWindow);
+                hintWindow = null;
+            }
+
+            else
+            {
+                if (passWindow != null)
+                {
+                    placeholder.Remove(passWindow);
+                    passWindow = null;
+                }
+                hintWindow = new HintWindow();
+                hintWindow.Position = new Vector2(500, 200);
+                placeholder.Add(hintWindow);
+            }
+            placeholder.Enable = true;
         }
     }
 }
-
