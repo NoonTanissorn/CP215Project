@@ -16,9 +16,6 @@ namespace CP215Project
 
 
 
-
-
-
         public Room2(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
@@ -181,14 +178,12 @@ namespace CP215Project
             var keyInfo = GlobalKeyboardInfo.Value;
 
             if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
-            {
-                placeholder.Toggle();
+            {;
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
 
             else if (keyInfo.IsKeyPressed(Keys.H))
             {
-                placeholder.Toggle();
                 ShowHint2();
             }
 
@@ -214,14 +209,25 @@ namespace CP215Project
 
         private void ShowPassWindow() // กดตัวเลข
         {
-            if (passWindow == null)
+            if (passWindow != null)
             {
+                placeholder.Remove(passWindow);
+                passWindow = null;
+                placeholder.Enable = false;
+            }
+            else
+            {
+                if (hintWindow2 != null)
+                {
+                    placeholder.Remove(hintWindow2);
+                    hintWindow2 = null;
+                }
                 passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
                 passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
                 passWindow.Position = new Vector2(500, 200);
                 placeholder.Add(passWindow);
+                placeholder.Enable = true;
             }
-            placeholder.Enable = true;
         }
 
         //check รหัสว่าถูกไหม
@@ -246,9 +252,24 @@ namespace CP215Project
         }
         private void ShowHint2() //กล่องข้อความบอกคำใบ้
         {
-            hintWindow2 = new HintWindow2();
-            hintWindow2.Position = new Vector2(500, 200);
-            placeholder.Add(hintWindow2);
+            if (hintWindow2 != null)
+            {
+                placeholder.Remove(hintWindow2);
+                hintWindow2 = null;
+            }
+
+            else
+            {
+                if (passWindow != null)
+                {
+                    placeholder.Remove(passWindow);
+                    passWindow = null;
+                }
+                hintWindow2 = new HintWindow2();
+                hintWindow2.Position = new Vector2(500, 200);
+                placeholder.Add(hintWindow2);
+            }
+            placeholder.Enable = true;
         }
 
     }

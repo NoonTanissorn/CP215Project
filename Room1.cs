@@ -23,6 +23,7 @@ namespace CP215Project
         Song song;
         SoundEffect soundEffect;
         SoundEffect soundEffect2;
+        SoundEffect soundEffect3;
 
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
@@ -184,6 +185,7 @@ namespace CP215Project
             MediaPlayer.Play(song);
             soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
             soundEffect2 = SoundEffect.FromFile("Flee.wav");
+            soundEffect3 = SoundEffect.FromFile("beep.wav");
         }
 
         public override void Act(float deltaTime)
@@ -248,6 +250,7 @@ namespace CP215Project
                     placeholder.Remove(hintWindow);
                     hintWindow = null;
                 }
+                soundEffect3.Play();
                 passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
                 passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
                 passWindow.Position = new Vector2(500, 200);

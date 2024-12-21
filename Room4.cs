@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using MonoGame.Extended.Tiled;
+using System;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
@@ -10,6 +14,12 @@ namespace CP215Project
         ExitNotifier exitNotifier;
         CameraMan cameraMan;
         Vector2 screenSize;
+
+        private TileMap tileMap2; // Declare tileMap1 as a class field
+        private Dog dog;         // Declare dog as a class field
+        Song song;
+        SoundEffect soundEffect;
+        private bool soundPlayed = false;
 
         Placeholder placeholder = new Placeholder();
         private MiniGamePanel4 minigame4;
@@ -27,12 +37,12 @@ namespace CP215Project
 
             var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room4_layer1.csv");
-            var tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+            tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room4_layer2.csv");
             var tileMap3 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room4_layer3.csv");
 
-            var dog = new Dog(tileMap2);
+            dog = new Dog(tileMap2);
 
             int[] phohibiTiles = [ 
                 ///block1
@@ -152,7 +162,7 @@ namespace CP215Project
                 2264,2265];
 
             dog.ProhibitTiles = phohibiTiles;
-            dog.Position = tileMap1.TileCenter(27, 7);
+            dog.Position = tileMap1.TileCenter(4, 27);
 
             var visual = new Actor() { Position = new Vector2(415, 0) };
             visual.Scale = new Vector2(2.25f, 2.25f);
@@ -165,6 +175,10 @@ namespace CP215Project
             sorter.Add(tileMap2);
             sorter.Add(tileMap3);
             sorter.Add(dog);
+
+            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
+            //MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("Flee.wav");
 
             for (int i = 0; i < 100; ++i)
             {
@@ -220,6 +234,22 @@ namespace CP215Project
                 ShowMiniGame(); //กดenter โชว์เครื่องกดรหัส
             }
             */
+            // Get the dog's current position
+            var dogTileIndex = TileIndexFromPosition(dog.Position);
+
+            // Check the tile number at that position
+            var tileNumber = tileMap2.GetTile(dogTileIndex);
+
+            // Exit the game if the tile number is 555
+            if (tileNumber == 555 && !soundPlayed)
+            {
+                soundEffect.Play();
+                soundPlayed = true;
+                AddAction(new SequenceAction(
+                    Actions.FadeOut(0.5f, this),
+                    new RunAction(() => exitNotifier(this, 0))
+                ));
+            }
         }
 
         private void ShowMiniGame() 
@@ -254,6 +284,13 @@ namespace CP215Project
             actor.AddAction(new RandomMover(actor));
             //actor.AddAction(new RotateAction(actor, -90));
             return actor;
+        }
+
+        private Vector2i TileIndexFromPosition(Vector2 position)
+        {
+            int x = (int)(position.X / tileMap2.TileSize.X);
+            int y = (int)(position.Y / tileMap2.TileSize.Y);
+            return new Vector2i(x, y);
         }
     }
 }
