@@ -28,10 +28,10 @@ namespace CP215Project
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room2);*/
 
-
-            /*room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room3);*/
-
+            /*
+            room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room3);
+            */
             /*room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room4);*/
 
