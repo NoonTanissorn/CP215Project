@@ -180,23 +180,20 @@ namespace CP215Project
             //MediaPlayer.Play(song);
             soundEffect = SoundEffect.FromFile("Flee.wav");
 
+            int tileMapWidth = 100 * (int)tileMap1.TileSize.X;
+            int tileMapHeight = 100 * (int)tileMap1.TileSize.Y;
+
             for (int i = 0; i < 100; ++i)
             {
-                int imgNo = RandomUtil.Next(2);
                 Vector2 randomPosition = new Vector2(
-                    RandomUtil.Next((int)screenSize.X),
-                    RandomUtil.Next((int)screenSize.Y)
-                );
+                    RandomUtil.Next(tileMapWidth),
+                    RandomUtil.Next(tileMapHeight)
+                    );
 
-                if (imgNo == 0)
-                {
-                    var ball = CreateBall(randomPosition);
-                    visual.Add(ball);
-                    sorter.Add(ball);
-                }
-
-                else
-                    visual.Add(CreatePuppy());
+                var ball = CreateBall(randomPosition);
+                visual.Add(ball);
+                sorter.Add(ball);
+                
             }
 
 
@@ -250,6 +247,22 @@ namespace CP215Project
                     new RunAction(() => exitNotifier(this, 0))
                 ));
             }
+
+            // Check for collision between balls and dog
+            foreach (var child in Children)
+            {
+                if (child is BouncingBall ball)
+                {
+                    if (ball.BoundingBox.IsOverlap(dog.BoundingBox))
+                    {
+                        AddAction(new SequenceAction(
+                            Actions.FadeOut(0.5f, this),
+                            new RunAction(() => exitNotifier(this, 1))
+                        ));
+                        break;
+                    }
+                }
+            }
         }
 
         private void ShowMiniGame() 
@@ -265,10 +278,11 @@ namespace CP215Project
         private Actor CreateBall(Vector2 position)
         {
             var texture = TextureCache.Get("Ball.png");
-            var ball = new SpriteActor(texture);
+            var ball = new BouncingBall(texture, tileMap2);
             ball.Origin = ball.RawSize / 2;
             ball.Scale = new Vector2(0.5f, 0.5f);
             ball.Position = position;
+
             ball.AddAction(new RandomMover(ball));
             ball.AddAction(new RotateToAction(1, 360, ball));
             return ball;
@@ -281,6 +295,7 @@ namespace CP215Project
             actor.Origin = actor.RawSize / 2;
             actor.Scale = new Vector2(0.3f, -0.3f);
             actor.Position = screenSize / 2;
+
             actor.AddAction(new RandomMover(actor));
             //actor.AddAction(new RotateAction(actor, -90));
             return actor;
