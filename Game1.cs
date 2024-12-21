@@ -19,16 +19,10 @@ namespace CP215Project
         {
             cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Pink;
-            /*
-            room12 = new Room12();
-            All.Add(room12);
-            */
-
-
-            /*
+            
             room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
-            */
+            
 
 
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
@@ -38,8 +32,8 @@ namespace CP215Project
             /*room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room3);*/
 
-            room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room4);
+            /*room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room4);*/
 
             /*room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room5);*/
