@@ -39,7 +39,7 @@ namespace CP215Project
                                                 "room2_layer3.csv");
             
 
-            var dog = new Dog(tileMap2);
+            dog = new Dog(tileMap2);
             int[] phohibiTiles = [ 
                 ///block1
                 103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
@@ -158,7 +158,7 @@ namespace CP215Project
                 2264,2265];
 
             dog.ProhibitTiles = phohibiTiles;
-            dog.Position = tileMap1.TileCenter(10, 10);
+            dog.Position = tileMap1.TileCenter(15, 5);
 
 
             var visual = new Actor() { Position = new Vector2(415, 0) };
@@ -181,7 +181,7 @@ namespace CP215Project
 
             //Sound
             song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
-            MediaPlayer.Play(song);
+            //MediaPlayer.Play(song);
             soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
             soundEffect2 = SoundEffect.FromFile("Flee.wav");
             soundEffect3 = SoundEffect.FromFile("beep.wav");
@@ -215,7 +215,7 @@ namespace CP215Project
             }
 
 
-            /*
+            
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -230,7 +230,7 @@ namespace CP215Project
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
             
-            */
+            
 
         }
 
@@ -256,6 +256,7 @@ namespace CP215Project
         {
             if (enteredPassword == predefinedPassword)
             {
+                soundEffect2.Play();
                 // Navigate to Room12
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),

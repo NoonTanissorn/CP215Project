@@ -208,7 +208,7 @@ namespace CP215Project
                 return;
             }
             */
-            /*
+            
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -222,7 +222,7 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
-            */
+            
 
             if(keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
                 placeholder.Toggle();

@@ -54,14 +54,6 @@ namespace CP215Project
                     MediaPlayer.Resume();
             }
 
-            if (keyInfo.IsKeyPressed(Keys.R))
-                MediaPlayer.Play(song);
-
-            if (keyInfo.IsKeyPressed(Keys.Tab))
-            {
-                soundEffect.Play();
-            }
-
             if (keyInfo.IsKeyPressed(Keys.End))
             {
                 MediaPlayer.Stop();

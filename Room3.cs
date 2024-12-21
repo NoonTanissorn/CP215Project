@@ -187,7 +187,7 @@ namespace CP215Project
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
 
-            /*
+            
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -201,7 +201,7 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
-            */
+            
 
             // Get the dog's current position
             var dogTileIndex = TileIndexFromPosition(dog.Position);
@@ -209,7 +209,7 @@ namespace CP215Project
             // Check the tile number at that position
             var tileNumber = tileMap2.GetTile(dogTileIndex);
 
-            if (tileNumber == 2951)
+            if (tileNumber == 2651 || tileNumber == 2951)
             {
                 ShowMail();
             }
