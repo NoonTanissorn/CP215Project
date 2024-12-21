@@ -38,10 +38,10 @@ namespace CP215Project
             /*room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room5);*/
 
-            /*
-            room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room6);
-            */
+            
+            /*room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room6);*/
+            
             /*
             bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
             bossfight.Position = new Vector2(415, 0);
