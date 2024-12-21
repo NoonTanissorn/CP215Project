@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
+using System;
 using System.Diagnostics;
 using ThanaNita.MonoGameTnt;
 
@@ -13,6 +16,9 @@ namespace CP215Project
         CameraMan cameraMan;
         private TileMap tileMap1; // Declare tileMap1 as a class field
         private Dog dog;         // Declare dog as a class field
+        Song song;
+        SoundEffect soundEffect;
+        private bool soundPlayed = false;
         public Room5(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
@@ -160,13 +166,17 @@ namespace CP215Project
 
             Add(visual);
 
+            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("Flee.wav");
+
         }
 
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
-
+            /*
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -180,6 +190,7 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+            */
 
             // Get the dog's current position
             var dogTileIndex = TileIndexFromPosition(dog.Position);
@@ -188,8 +199,10 @@ namespace CP215Project
             var tileNumber = tileMap1.GetTile(dogTileIndex);
 
             // Exit the game if the tile number is 449
-            if (tileNumber == 449)
+            if (tileNumber == 449 && !soundPlayed)
             {
+                soundEffect.Play();
+                soundPlayed = true;
                 AddAction(new SequenceAction(
                     Actions.FadeOut(0.5f, this),
                     new RunAction(() => exitNotifier(this, 0))
