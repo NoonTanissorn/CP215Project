@@ -25,10 +25,10 @@ namespace CP215Project
             */
 
 
-            
+            /*
             room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
-            
+            */
 
 
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
@@ -48,15 +48,15 @@ namespace CP215Project
             room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room6);
             */
-
-            /*bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
+            /*
+            bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
             bossfight.Position = new Vector2(415, 0);
             All.Add(bossfight);*/
             
-            /*
-            bossfight = new Bossfight();
+            
+            bossfight = new Bossfight(ExitNotifier);
             All.Add(bossfight);
-            */
+            
 
             
 
