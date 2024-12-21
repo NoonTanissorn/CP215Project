@@ -11,6 +11,8 @@ namespace CP215Project
         Placeholder placeholder = new Placeholder();
         CameraMan cameraMan;
         private HintWindow2 hintWindow2;
+        private string predefinedPassword = "3213"; // Example password
+        private PassWindow passWindow;
 
 
 
@@ -178,8 +180,13 @@ namespace CP215Project
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
 
+            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
+            {
+                placeholder.Toggle();
+                ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
+            }
 
-            if (keyInfo.IsKeyPressed(Keys.H))
+            else if (keyInfo.IsKeyPressed(Keys.H))
             {
                 placeholder.Toggle();
                 ShowHint2();
@@ -200,8 +207,42 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+            
 
 
+        }
+
+        private void ShowPassWindow() // กดตัวเลข
+        {
+            if (passWindow == null)
+            {
+                passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
+                passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
+                passWindow.Position = new Vector2(500, 200);
+                placeholder.Add(passWindow);
+            }
+            placeholder.Enable = true;
+        }
+
+        //check รหัสว่าถูกไหม
+        private void PassWindow_OnPasswordEntered(string enteredPassword)
+        {
+            if (enteredPassword == predefinedPassword)
+            {
+                // Navigate to Room12
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    )); // Assuming 0 is the code to navigate to Room12
+            }
+            else
+            {
+                // Password is incorrect, do nothing or show an error message
+                // Demo as hide the pass window and clear the number entered
+                placeholder.Enable = false;
+                passWindow.ClearEnteredPassword();
+
+            }
         }
         private void ShowHint2() //กล่องข้อความบอกคำใบ้
         {

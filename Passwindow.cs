@@ -17,7 +17,7 @@ namespace CP215Project
         Vector2 currentPosition;
         private string enteredPassword = string.Empty;
         public event Action<string> OnPasswordEntered;
-
+        private int i = 0;
 
 
         RectF rawRect;
@@ -176,7 +176,12 @@ namespace CP215Project
             enteredPassword += textValue;
             var newText = new Text("BlackOpsOne-Regular.ttf", 185, Color.Brown, textValue);
             newText.Position = currentPosition;
-            Add(newText);
+            if (i < 4)
+            {
+                Add(newText);
+                i++;
+            }
+
 
             // Update the current position for the next text
             currentPosition.X += newText.RawSize.X;

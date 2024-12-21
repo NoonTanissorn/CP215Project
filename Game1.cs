@@ -38,8 +38,8 @@ namespace CP215Project
             /*room3 = new Room3(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room3);*/
 
-            /*room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room4);*/
+            room4 = new Room4(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room4);
 
             /*room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room5);*/
@@ -54,8 +54,8 @@ namespace CP215Project
             All.Add(bossfight);*/
             
             
-            bossfight = new Bossfight(ExitNotifier);
-            All.Add(bossfight);
+            /*bossfight = new Bossfight(ExitNotifier);
+            All.Add(bossfight);*/
             
 
             
