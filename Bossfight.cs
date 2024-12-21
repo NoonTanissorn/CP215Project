@@ -20,9 +20,11 @@ namespace CP215Project
         ProgressBar bosshp;
         private Random random;
         private bool isRunButtonClicked = false; // Flag to indicate if the run button has been clicked
+        private float countdownTime = 20f; // Countdown time in seconds
+        private Text countdownText; // Text to display the countdown timer
+        private bool isGameOver = false; // Flag to indicate if the game is over
 
-
-        public Bossfight(ExitNotifier exitNotifier) 
+        public Bossfight(ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
             //background
@@ -48,18 +50,8 @@ namespace CP215Project
 
             //-------------------------------------------------//
 
-            /*var statmenu = new Panel(new Vector2(730, 350), Color.Green, Color.White, 5);
-            statmenu.Position = new Vector2(350, 730);
-            bossfight.Add(statmenu);*/
-
             //ปุ่มต่างๆ
             var fightbutton = new Button("BlackOpsOne-Regular.ttf", 50, Color.Brown, "Fight", new Vector2(200, 80));
-            //fightbutton.NormalColor = Color.Green;
-            //fightbutton.HighlightColor = Color.Green;
-            //fightbutton.PressedColor = Color.Green;
-            //fightbutton.NormalColorLine = Color.Green;
-            //fightbutton.HighlightColorLine = Color.Green;
-            //fightbutton.PressedColorLine = Color.Green;
             fightbutton.Position = new Vector2(590, 950);
             fightbutton.ButtonClicked += fightbutton_ButtonClicked;
             Add(fightbutton);
@@ -97,7 +89,9 @@ namespace CP215Project
 
             //-------------------------------------------------//
 
-
+            // Countdown timer text
+            countdownText = new Text("Pridi-Regular.ttf", 70, Color.White, countdownTime.ToString("F1")) { Position = new(600, 50) };
+            Add(countdownText);
         }
 
         private bool IsPlayerDead()
@@ -107,7 +101,7 @@ namespace CP215Project
 
         private void fightbutton_ButtonClicked(GenericButton button)
         {
-            if (isRunButtonClicked || IsPlayerDead()) return; // Check if the run button has been clicked
+            if (isRunButtonClicked || IsPlayerDead() || isGameOver) return; // Check if the run button has been clicked or game is over
 
             int playerDamage = RandomUtil.Next(10, 16);
             bosshp.Value -= playerDamage;
@@ -121,17 +115,16 @@ namespace CP215Project
 
         private void Healbutton_ButtonClicked(GenericButton button)
         {
-            if (isRunButtonClicked || IsPlayerDead()) return; // Check if the run button has been clicked
+            if (isRunButtonClicked || IsPlayerDead() || isGameOver) return; // Check if the run button has been clicked or game is over
 
             int healAmount = RandomUtil.Next(10, 16);
             playerhp.Value = playerhp.Value + healAmount;
-            //playerhp.Value = Math.Min(playerhp.Value + healAmount, 10);
             BossAttack();
         }
 
         private async void Runbutton_ButtonClicked(GenericButton button)
         {
-            if (IsPlayerDead()) return;
+            if (IsPlayerDead() || isGameOver) return;
             isRunButtonClicked = true; // Set the flag to indicate the run button has been clicked
 
             var run = new Text("Pridi-Regular.ttf", 70, Color.Red, "หนี? นี่คือชะตากรรมที่คุณเป็นคนเลือกเอง สู้ต่อไปน้า") { Position = new(500, 500) };
@@ -143,69 +136,66 @@ namespace CP215Project
                 Actions.FadeOut(0.5f, this),
                 new RunAction(() => exitNotifier(this, 1))
             ));
-
-
         }
-
-        
-
-        
-        
 
         private async void BossAttack()
         {
             if (bosshp.Value > 0)
             {
                 int bossDamage = RandomUtil.Next(1, 6);
-                playerhp.Value -= bossDamage;
-                //UpdateStatus($"บอส: โจมตี! สร้าง {bossDamage} ดาเมจ");
+                //playerhp.Value -= bossDamage;
             }
 
             if (playerhp.Value <= 0)
             {
-                //UpdateStatus("ผู้เล่นพ่ายแพ้!");
-                var loss = new Text("Pridi-Regular.ttf", 70, Color.Red, "แตก") { Position = new(600, 500) };
-                Add(loss);
-
-                await Task.Delay(2000); // Wait for 2 seconds
-
-                AddAction(new SequenceAction(
-                    Actions.FadeOut(0.5f, this),
-                    new RunAction(() => exitNotifier(this, 1))
-                ));
+                GameOver();
             }
-
-
         }
 
         private void CheckBattleEnd()
         {
             if (bosshp.Value <= 0)
             {
-                //UpdateStatus("บอส: ยอมแพ้!");
                 var win = new Text("Pridi-Regular.ttf", 70, Color.Red, "ชนะแล้วโว้ยยยยยยยยยยย") { Position = new(600, 500) };
                 Add(win);
-
-                /////////////ไปที่หน้าจบเกม////////////////
+                isGameOver = true; // Set the game over flag
             }
         }
-
-        
 
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
 
-            
-            
+            if (!isGameOver)
+            {
+                countdownTime -= deltaTime;
+                countdownText.Str = countdownTime.ToString("F1");
 
+                if (countdownTime <= 0)
+                {
+                    countdownTime = 0;
+                    isGameOver = true;
 
-
-
+                    if (bosshp.Value > 0)
+                    {
+                        GameOver();
+                    }
+                }
+            }
         }
 
-        
+        private async void GameOver()
+        {
+            var loss = new Text("Pridi-Regular.ttf", 70, Color.Red, "แตก") { Position = new(600, 500) };
+            Add(loss);
 
+            await Task.Delay(2000); // Wait for 2 seconds
 
+            AddAction(new SequenceAction(
+                Actions.FadeOut(0.5f, this),
+                new RunAction(() => exitNotifier(this, 1))
+            ));
+            isGameOver = true;
+        }
     }
 }
