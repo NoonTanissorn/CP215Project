@@ -32,7 +32,7 @@ namespace CP215Project
             var tileMap3 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room4_layer3.csv");
 
-
+            var dog = new Dog(tileMap2);
             var visual = new Actor() { Position = new Vector2(415, 0) };
             visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
@@ -43,6 +43,7 @@ namespace CP215Project
             sorter.Add(tileMap1);
             sorter.Add(tileMap2);
             sorter.Add(tileMap3);
+            sorter.Add(dog);
 
             for (int i = 0; i < 100; ++i)
             {
