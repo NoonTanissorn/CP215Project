@@ -1,6 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CP215Project;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 using System.ComponentModel.DataAnnotations;
 using ThanaNita.MonoGameTnt;
 
@@ -17,6 +21,13 @@ namespace CP215Project
         //private bool isMessageWindowVisible = true;
         private HintWindow hintWindow;
 
+        private TileMap tileMap1;
+        private Dog dog;
+        Song song;
+        SoundEffect soundEffect;
+        SoundEffect soundEffect2;
+        SoundEffect soundEffect3;
+
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
             this.exitNotifier = exitNotifier;
@@ -24,14 +35,14 @@ namespace CP215Project
 
             var builder = new TileMapBuilder();
 
-            var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
+            tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room1_layer1.csv");
             var tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room1_layer2.csv");
             var tileMap3 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100, 100,
                                                 "room1_layer3.csv");
             //จุดที่ไม่ให้ชน
-            var dog = new Dog(tileMap2);
+            dog = new Dog(tileMap2);
             int[] phohibiTiles = ///block1
                 [103,104,107,110,113,114,203,208,209,214,301,303,304,305,306,307,308,309,310,311,312,313,314,316,
                 401,402,403,404,405,406,407,408,409,410,411,412,413,414,412,416,500,501,502,503,504,505,506,507,
@@ -171,6 +182,13 @@ namespace CP215Project
             var messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
             messagewindow.Position = new Vector2(100, 830);
             Add(messagewindow);
+
+            //Sound
+            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
+            soundEffect2 = SoundEffect.FromFile("Flee.wav");
+            soundEffect3 = SoundEffect.FromFile("beep.wav");
         }
 
         public override void Act(float deltaTime)
@@ -190,7 +208,7 @@ namespace CP215Project
                 return;
             }
             */
-
+            /*
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -204,41 +222,68 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+            */
 
-
-            //หน้าจอรหัส
             if(keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
                 placeholder.Toggle();
 
-            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
+            //หน้าจอรหัส
+        /*    if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
             {
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
 
             if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
             {
-                placeholder.Toggle();
+                soundEffect.Play();
                 ShowHint(); //กดenter โชว์คำถาม
+            }*/
+
+            var dogTileIndex = TileIndexFromPosition(dog.Position);
+
+            // Check the tile number at that position
+            var tileNumber = tileMap1.GetTile(dogTileIndex);
+
+            if (tileNumber == 1348 || tileNumber == 1349 || tileNumber == 1448 || tileNumber == 1449)
+            {
+                ShowHint();
+            }
+            else
+            {
+                CloseHintWindow();
+            }
+            if (tileNumber == 1548 || tileNumber == 1549)
+            {
+                ShowPassWindow();
+            }
+            else
+            {
+                ClosePassWindow();
             }
         }
 
         private void ShowPassWindow() // กดตัวเลข
         {
+            if (hintWindow != null)
+            {
+                CloseHintWindow();
+            }
             if (passWindow == null)
             {
+                soundEffect3.Play();
                 passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
                 passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
                 passWindow.Position = new Vector2(500, 200);
                 placeholder.Add(passWindow);
+                placeholder.Enable = true;
             }
-            placeholder.Enable = true;
         }
 
         private void PassWindow_OnPasswordEntered(string enteredPassword)
         {
             if (enteredPassword == predefinedPassword)
             {
-                // Navigate to Room12
+                soundEffect2.Play();
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 0))
@@ -253,13 +298,44 @@ namespace CP215Project
 
             }
         }
-
+        private void ClosePassWindow()
+        {
+            if (passWindow != null)
+            {
+                placeholder.Remove(passWindow);
+                passWindow = null;
+                placeholder.Enable = false;
+            }
+        }
         private void ShowHint() //กล่องข้อความบอกคำใบ้
         {
-            hintWindow = new HintWindow();
-            hintWindow.Position = new Vector2(500, 200);
-            placeholder.Add(hintWindow);
+            if (passWindow != null)
+            {
+                CloseHintWindow();
+            }
+            if (hintWindow == null)
+            {
+                soundEffect.Play();
+                hintWindow = new HintWindow();
+                hintWindow.Position = new Vector2(500, 200);
+                placeholder.Add(hintWindow);
+                placeholder.Enable = true;
+            }    
+        }
+        private void CloseHintWindow()
+        {
+            if (hintWindow != null)
+            {
+                placeholder.Remove(hintWindow);
+                hintWindow = null;
+                placeholder.Enable = false;
+            }
+        }
+        private Vector2i TileIndexFromPosition(Vector2 position)
+        {
+            int x = (int)(position.X / tileMap1.TileSize.X);
+            int y = (int)(position.Y / tileMap1.TileSize.Y);
+            return new Vector2i(x, y);
         }
     }
 }
-

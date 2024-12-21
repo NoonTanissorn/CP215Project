@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
@@ -11,11 +14,15 @@ namespace CP215Project
         Placeholder placeholder = new Placeholder();
         CameraMan cameraMan;
         private HintWindow2 hintWindow2;
+        private string predefinedPassword = "3213"; // Example password
+        private PassWindow passWindow;
 
-
-
-
-
+        private TileMap tileMap1;
+        private Dog dog;
+        Song song;
+        SoundEffect soundEffect;
+        SoundEffect soundEffect2;
+        SoundEffect soundEffect3;
 
         public Room2(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
@@ -24,7 +31,7 @@ namespace CP215Project
 
             var builder = new TileMapBuilder();
 
-            var tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100,100,
+            tileMap1 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100,100,
                                                 "room2_layer1.csv");
             var tileMap2 = builder.CreateSimple("tilemap.png", new Vector2(16, 16), 100,100,
                                                 "room2_layer2.csv");
@@ -171,6 +178,13 @@ namespace CP215Project
 
             Add(visual);
             Add(placeholder);
+
+            //Sound
+            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
+            soundEffect2 = SoundEffect.FromFile("Flee.wav");
+            soundEffect3 = SoundEffect.FromFile("beep.wav");
         }
 
         public override void Act(float deltaTime)
@@ -178,15 +192,30 @@ namespace CP215Project
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
 
+            var dogTileIndex = TileIndexFromPosition(dog.Position);
 
-            if (keyInfo.IsKeyPressed(Keys.H))
+            // Check the tile number at that position
+            var tileNumber = tileMap1.GetTile(dogTileIndex);
+
+            if (tileNumber == 1348 || tileNumber == 1349 || tileNumber == 1448 || tileNumber == 1449)
             {
-                placeholder.Toggle();
-                ShowHint2();
+                ShowHint();
+            }
+            else
+            {
+                CloseHintWindow();
+            }
+            if (tileNumber == 1548 || tileNumber == 1549)
+            {
+                ShowPassWindow();
+            }
+            else
+            {
+                ClosePassWindow();
             }
 
 
-
+            /*
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -200,14 +229,86 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
-
+            
+            */
 
         }
-        private void ShowHint2() //กล่องข้อความบอกคำใบ้
+
+        private void ShowPassWindow() // กดตัวเลข
         {
-            hintWindow2 = new HintWindow2();
-            hintWindow2.Position = new Vector2(500, 200);
-            placeholder.Add(hintWindow2);
+            if (hintWindow2 != null)
+            {
+                CloseHintWindow();
+            }
+            if (passWindow == null)
+            {
+                soundEffect3.Play();
+                passWindow = new PassWindow(new Vector2(500, 800), Color.White, Color.Black);
+                passWindow.OnPasswordEntered += PassWindow_OnPasswordEntered;
+                passWindow.Position = new Vector2(500, 200);
+                placeholder.Add(passWindow);
+                placeholder.Enable = true;
+            }
+        }
+
+        //check รหัสว่าถูกไหม
+        private void PassWindow_OnPasswordEntered(string enteredPassword)
+        {
+            if (enteredPassword == predefinedPassword)
+            {
+                // Navigate to Room12
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                    )); // Assuming 0 is the code to navigate to Room12
+            }
+            else
+            {
+                // Password is incorrect, do nothing or show an error message
+                // Demo as hide the pass window and clear the number entered
+                placeholder.Enable = false;
+                passWindow.ClearEnteredPassword();
+
+            }
+        }
+        private void ClosePassWindow()
+        {
+            if (passWindow != null)
+            {
+                placeholder.Remove(passWindow);
+                passWindow = null;
+                placeholder.Enable = false;
+            }
+        }
+        private void ShowHint() //กล่องข้อความบอกคำใบ้
+        {
+            if (passWindow != null)
+            {
+                CloseHintWindow();
+            }
+            if (hintWindow2 == null)
+            {
+                soundEffect.Play();
+                hintWindow2 = new HintWindow2();
+                hintWindow2.Position = new Vector2(500, 200);
+                placeholder.Add(hintWindow2);
+                placeholder.Enable = true;
+            }
+        }
+        private void CloseHintWindow()
+        {
+            if (hintWindow2 != null)
+            {
+                placeholder.Remove(hintWindow2);
+                hintWindow2 = null;
+                placeholder.Enable = false;
+            }
+        }
+        private Vector2i TileIndexFromPosition(Vector2 position)
+        {
+            int x = (int)(position.X / tileMap1.TileSize.X);
+            int y = (int)(position.Y / tileMap1.TileSize.Y);
+            return new Vector2i(x, y);
         }
 
     }

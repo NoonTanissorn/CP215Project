@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
@@ -14,17 +15,16 @@ namespace CP215Project
 {
     public class Bossfight : Actor
     {
-
+        ExitNotifier exitNotifier;
         ProgressBar playerhp;
         ProgressBar bosshp;
         private Random random;
-        
-
-        
+        private bool isRunButtonClicked = false; // Flag to indicate if the run button has been clicked
 
 
-        public Bossfight() 
+        public Bossfight(ExitNotifier exitNotifier) 
         {
+            this.exitNotifier = exitNotifier;
             //background
             var bossfight = new Panel(new Vector2(1080, 1080), Color.Black, Color.White, 0);
             bossfight.Position = new Vector2(415, 0);
@@ -100,36 +100,49 @@ namespace CP215Project
 
         }
 
+        private bool IsPlayerDead()
+        {
+            return playerhp.Value <= 0;
+        }
+
         private void fightbutton_ButtonClicked(GenericButton button)
         {
+            if (isRunButtonClicked || IsPlayerDead()) return; // Check if the run button has been clicked
+
             int playerDamage = RandomUtil.Next(10, 16);
             bosshp.Value -= playerDamage;
             CheckBattleEnd();
 
-            
             if (bosshp.Value > 0)
             {
                 BossAttack();
             }
-
-            
         }
 
         private void Healbutton_ButtonClicked(GenericButton button)
         {
+            if (isRunButtonClicked || IsPlayerDead()) return; // Check if the run button has been clicked
+
             int healAmount = RandomUtil.Next(10, 16);
             playerhp.Value = playerhp.Value + healAmount;
             //playerhp.Value = Math.Min(playerhp.Value + healAmount, 10);
             BossAttack();
         }
 
-        private void Runbutton_ButtonClicked(GenericButton button)
+        private async void Runbutton_ButtonClicked(GenericButton button)
         {
+            if (IsPlayerDead()) return;
+            isRunButtonClicked = true; // Set the flag to indicate the run button has been clicked
 
             var run = new Text("Pridi-Regular.ttf", 70, Color.Red, "หนี? นี่คือชะตากรรมที่คุณเป็นคนเลือกเอง สู้ต่อไปน้า") { Position = new(500, 500) };
             Add(run);
 
+            await Task.Delay(2000); // Wait for 2 seconds
 
+            AddAction(new SequenceAction(
+                Actions.FadeOut(0.5f, this),
+                new RunAction(() => exitNotifier(this, 1))
+            ));
 
 
         }
@@ -139,7 +152,7 @@ namespace CP215Project
         
         
 
-        private void BossAttack()
+        private async void BossAttack()
         {
             if (bosshp.Value > 0)
             {
@@ -153,7 +166,16 @@ namespace CP215Project
                 //UpdateStatus("ผู้เล่นพ่ายแพ้!");
                 var loss = new Text("Pridi-Regular.ttf", 70, Color.Red, "แตก") { Position = new(600, 500) };
                 Add(loss);
+
+                await Task.Delay(2000); // Wait for 2 seconds
+
+                AddAction(new SequenceAction(
+                    Actions.FadeOut(0.5f, this),
+                    new RunAction(() => exitNotifier(this, 1))
+                ));
             }
+
+
         }
 
         private void CheckBattleEnd()

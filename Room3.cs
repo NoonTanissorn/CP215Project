@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
+using System;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
@@ -14,6 +17,10 @@ namespace CP215Project
         private Dog dog;         // Declare dog as a class field
         Placeholder placeholder = new Placeholder();
         private Mail mail;
+        Song song;
+        SoundEffect soundEffect;
+        SoundEffect soundEffect2;
+        private bool soundPlayed = false;
 
         public Room3(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
@@ -167,6 +174,12 @@ namespace CP215Project
 
             Add(visual);
             Add(placeholder);
+
+            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
+            //MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
+            soundEffect2 = SoundEffect.FromFile("Flee.wav");
+
         }
 
         public override void Act(float deltaTime)
@@ -174,6 +187,7 @@ namespace CP215Project
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
 
+            /*
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -187,6 +201,7 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+            */
 
             // Get the dog's current position
             var dogTileIndex = TileIndexFromPosition(dog.Position);
@@ -201,12 +216,14 @@ namespace CP215Project
 
             if (mail != null && keyInfo.IsKeyPressed(Keys.Space))
             {
+                soundEffect2.Play();
                 placeholder.Enable = false;
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 0))
                     ));
             }
+
             if (tileNumber == 505 || tileNumber == 1738 || tileNumber == 1739 || tileNumber == 1741 ||
                tileNumber == 1838 || tileNumber == 1839 || tileNumber == 1841 ||
                tileNumber == 1938 || tileNumber == 1939 || tileNumber == 1941 ||
@@ -225,8 +242,13 @@ namespace CP215Project
             int y = (int)(position.Y / tileMap2.TileSize.Y);
             return new Vector2i(x, y);
         }
-        private void ShowMail() // กดตัวเลข
+        private void ShowMail()
         {
+            if (!soundPlayed)
+            {
+                soundEffect.Play();
+                soundPlayed = true; // Set the flag to true to indicate that sound has been played
+            }
             mail = new Mail();
             mail.Position = new Vector2(500, 200);
             placeholder.Add(mail);
