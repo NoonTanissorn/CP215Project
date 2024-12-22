@@ -31,10 +31,15 @@ namespace CP215Project
             Add(text);
             text.AddAction(new TextAnimation(text, str, 45));
 
-            var button1 = new TextureRegion(TextureCache.Get("exitbutt.png"), new RectF(0, 0, 250, 100));
+            var button1 = new TextureRegion(TextureCache.Get("replaybutt.png"), new RectF(0, 0, 250, 100));
             var imageButton1 = new ImageButton(button1);
-            imageButton1.Position = new Vector2(1100, 950);
+            imageButton1.Position = new Vector2(1100, 825);
             Add(imageButton1);
+
+            var button2 = new TextureRegion(TextureCache.Get("exitbutt.png"), new RectF(0, 0, 250, 100));
+            var imageButton2 = new ImageButton(button2);
+            imageButton2.Position = new Vector2(1100, 950);
+            Add(imageButton2);
         }
 
         
