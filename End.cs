@@ -44,26 +44,35 @@ namespace CP215Project
             var button1 = new TextureRegion(TextureCache.Get("replaybutt.png"), new RectF(0, 0, 250, 100));
             imageButton1 = new ImageButton(button1);
             imageButton1.Position = new Vector2(1100, 825);
-            imageButton1.ButtonClicked += OnButton1Clicked;
+            imageButton1.ButtonClicked += imageButton1_ButtonClicked;
             Add(imageButton1);
 
             var button2 = new TextureRegion(TextureCache.Get("exitbutt.png"), new RectF(0, 0, 250, 100));
             var imageButton2 = new ImageButton(button2);
             imageButton2.Position = new Vector2(1100, 950);
+            imageButton2.ButtonClicked += imageButton2_ButtonClicked;
             Add(imageButton2);
 
             song = Song.FromUri("song", new Uri("endsong.ogg", UriKind.Relative));
             MediaPlayer.Play(song);
             //soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
         }
-        private void OnButton1Clicked(GenericButton button)
+        private void imageButton1_ButtonClicked(GenericButton button)
         {
+            MediaPlayer.Stop();
             AddAction(new SequenceAction(
                 Actions.FadeOut(0.5f, this),
                 new RunAction(() => exitNotifier(this, 0))
             ));
         }
 
-
+        private void imageButton2_ButtonClicked(GenericButton button) //Start Game
+        {
+            MediaPlayer.Stop();
+            AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 2))
+                    ));
+        }
     }
 }

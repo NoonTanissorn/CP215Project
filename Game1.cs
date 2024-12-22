@@ -18,13 +18,14 @@ namespace CP215Project
         protected override void LoadContent()
         {
 
-            //cameraMan = new CameraMan(Camera, ScreenSize);
+            cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Black;
+            CollisionDetectionUnit.AddDetector(0, 1);
 
           /*  room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);*/
 
-            CollisionDetectionUnit.AddDetector(0, 1);
+            
 
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
              All.Add(room2);*/
@@ -39,16 +40,20 @@ namespace CP215Project
             /*room5 = new Room5(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room5);*/
 
-
-            /*room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room6);*/
             /*
-            start = new Start( ExitNotifier);
-            All.Add(start);
+            room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room6);
             */
+
+            
+            start = new Start(ExitNotifier);
+            All.Add(start);
+           
+
+            /*
             end = new End(ExitNotifier);
             All.Add(end);
-
+            */
 
             /*
             bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
@@ -59,11 +64,6 @@ namespace CP215Project
             bossfight = new Bossfight(ExitNotifier);
             All.Add(bossfight);
             */
-
-
-
-
-
 
         }
 
@@ -139,20 +139,20 @@ namespace CP215Project
                 end = new End(ExitNotifier);
                 All.Add(end);
             }
-            else if (actor == end)
+            else if (actor == end && code == 0)
             {
                 end.Detach();
                 end = null;
-                room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
-                All.Add(room1);
+                start = new Start(ExitNotifier);
+                All.Add(start);
             }
 
             else if (actor == gameover)
             {
                 gameover.Detach();
                 gameover = null;
-                room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
-                All.Add(room1);
+                start = new Start(ExitNotifier);
+                All.Add(start);
             }   
 
             //หน้าอื่นส่ง Game Over มา จะส่ง Code 1

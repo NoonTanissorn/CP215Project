@@ -161,6 +161,7 @@ namespace CP215Project
 
                 await Task.Delay(2000);
 
+                MediaPlayer.Stop();
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 0))
@@ -197,6 +198,7 @@ namespace CP215Project
 
             await Task.Delay(2000); // Wait for 2 seconds
 
+            MediaPlayer.Stop();
             AddAction(new SequenceAction(
                 Actions.FadeOut(0.5f, this),
                 new RunAction(() => exitNotifier(this, 1))
