@@ -29,13 +29,13 @@ namespace CP215Project
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
 
-        private Howtoplay howtoplay;
+        
         private ImageButton imageButton1;
 
         Song song;
         SoundEffect soundEffect;
 
-        Text name;
+        
 
         public Start(ExitNotifier exitNotifier)
 
