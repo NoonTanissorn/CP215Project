@@ -34,6 +34,7 @@ namespace CP215Project
             endspic.Scale = new Vector2(2, 2);
             endspic.Position = new Vector2(385, 0);
             Add(endspic);
+
             
             text = new Text("Pridi-Regular.ttf", 200, Color.Black, "") { Position = new(675, 400) };
             str = "THE END";
