@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ThanaNita.MonoGameTnt;
 
 
-namespace CP215Project.Asset
+namespace CP215Project
 {
     internal class Howtoplay : Panel
     {

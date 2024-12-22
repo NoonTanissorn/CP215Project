@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using CP215Project.Asset;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -84,14 +84,37 @@ namespace CP215Project
 
             var keyInfo = GlobalKeyboardInfo.Value;
             //soundEffect.Play();
-            howtoplay = new Howtoplay();
+            /*howtoplay = new Howtoplay();
             howtoplay.Position = new Vector2(500, 200);
             placeholder.Add(howtoplay);
             placeholder.Enable = true;
             if (placeholder.Enable == true)
                 placeholder.Toggle();
+                Add(howtoplay);*/
+
+            
+            if (howtoplay == null)
+            {
+                soundEffect.Play();
+                howtoplay = new Howtoplay();
+                howtoplay.Position = new Vector2(500, 200);
+                placeholder.Add(howtoplay);
+                placeholder.Enable = true;
+                if (placeholder.Enable == true)
+                    placeholder.Toggle();
                 Add(howtoplay);
-                //placeholder.Enable = false;
+            }
+
+            else if  (howtoplay != null && keyInfo.IsKeyPressed(Keys.Enter))
+            {
+                placeholder.Remove(howtoplay);
+                howtoplay = null;
+                placeholder.Enable = false;
+            }
+
+            
+
+            //placeholder.Enable = false;
 
             /*if (placeholder.Enable != true)
             {
@@ -107,6 +130,28 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 2))
                     ));
+        }
+
+        private void ShowHowtoplay() //กล่องข้อความบอกคำใบ้
+        {
+            
+            if (howtoplay == null)
+            {
+                soundEffect.Play();
+                howtoplay = new Howtoplay();
+                howtoplay.Position = new Vector2(500, 200);
+                placeholder.Add(howtoplay);
+                placeholder.Enable = true;
+            }
+        }
+        private void CloseHowtoplay()
+        {
+            if (howtoplay != null)
+            {
+                placeholder.Remove(howtoplay);
+                howtoplay = null;
+                placeholder.Enable = false;
+            }
         }
 
     }
