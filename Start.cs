@@ -29,6 +29,7 @@ namespace CP215Project
         SoundEffect soundEffect;
         private Howtoplay howtoplay;
 
+
         public Start(ExitNotifier exitNotifier)
 
         {
@@ -38,7 +39,7 @@ namespace CP215Project
             bosspic.Position = new Vector2(385, 0);
             Add(bosspic);
 
-
+            //ปุ่ม
             var button1 = new TextureRegion(TextureCache.Get("startbutt.png"), new RectF(0, 0, 250, 100));
             var imageButton1 = new ImageButton(button1);
             imageButton1.Position = new Vector2(800, 500);
@@ -47,6 +48,7 @@ namespace CP215Project
             var button2 = new TextureRegion(TextureCache.Get("howtobutt.png"), new RectF(0, 0, 320, 100));
             var imageButton2 = new ImageButton(button2);
             imageButton2.Position = new Vector2(770, 650);
+            imageButton2.ButtonClicked += popup;
             Add(imageButton2);
 
             var button3 = new TextureRegion(TextureCache.Get("exitbutt.png"), new RectF(0, 0, 250, 100));
@@ -57,15 +59,17 @@ namespace CP215Project
 
 
         //pop up วิธีการเล่น
-        private void popup(GenericButton button) //กล่องข้อความบอกคำใบ้
+        private void popup(GenericButton button) //popup กล่องข้อความบอกคำใบ้
 
         {
-            var keyInfo = GlobalKeyboardInfo.Value;
+            
+            /*var keyInfo = GlobalKeyboardInfo.Value;
             soundEffect.Play();
             howtoplay = new Howtoplay();
             howtoplay.Position = new Vector2(500, 200);
             placeholder.Add(howtoplay);
-            placeholder.Enable = true;
+            placeholder.Enable = true;*/
+
 
 
         }

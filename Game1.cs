@@ -43,11 +43,11 @@ namespace CP215Project
             /*room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room6);*/
 
-            /*start = new Start( ExitNotifier);
-            All.Add(start);*/
+            start = new Start( ExitNotifier);
+            All.Add(start);
 
-            end = new End(ExitNotifier);
-            All.Add(end);
+            /*end = new End(ExitNotifier);
+            All.Add(end);*/
 
 
             /*
