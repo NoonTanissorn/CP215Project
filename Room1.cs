@@ -179,8 +179,8 @@ namespace CP215Project
             Add(placeholder);
 
             //Message Window กล่องข้อความหมามีคิ้วด้านล่าง
-            var messagewindow = new Messagewindow1(new Vector2(1445,250), Color.Black, Color.White, 10);
-            messagewindow.Position = new Vector2(100, 830);
+            var messagewindow = new Messagewindow1(new Vector2(1085,250), Color.Black, Color.White, 5);
+            messagewindow.Position = new Vector2(380, 830);
             Add(messagewindow);
 
             //Sound
