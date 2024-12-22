@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -80,13 +81,23 @@ namespace CP215Project
         //pop up วิธีการเล่น
         private void imageButton2_ButtonClicked(GenericButton button) //popup กล่องข้อความบอกคำใบ้
         {
-            
+
             var keyInfo = GlobalKeyboardInfo.Value;
             //soundEffect.Play();
             howtoplay = new Howtoplay();
             howtoplay.Position = new Vector2(500, 200);
             placeholder.Add(howtoplay);
             placeholder.Enable = true;
+            if (placeholder.Enable == true)
+                placeholder.Toggle();
+                Add(howtoplay);
+                //placeholder.Enable = false;
+
+            /*if (placeholder.Enable != true)
+            {
+                placeholder.Remove(howtoplay);
+                placeholder.Enable = true;
+            }*/
 
         }
 
