@@ -21,10 +21,10 @@ namespace CP215Project
             //cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Black;
 
-            /*room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
-            All.Add(room1);*/
+            room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
+            All.Add(room1);
 
-            // CollisionDetectionUnit.AddDetector(0, 1);
+            CollisionDetectionUnit.AddDetector(0, 1);
 
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
              All.Add(room2);*/
