@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 using System.Collections.Generic;
 using ThanaNita.MonoGameTnt;
 
@@ -10,6 +13,10 @@ namespace CP215Project
     {
         ExitNotifier exitNotifier;
         CameraMan cameraMan;
+
+        Song song;
+        SoundEffect soundEffect;
+
         public Room6(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMan)
         {
             this.exitNotifier = exitNotifier;
@@ -169,7 +176,7 @@ namespace CP215Project
 
             visual.Add(sorter);
             sorter.Add(dog);
-            
+
 
             Add(visual);
 
@@ -177,6 +184,36 @@ namespace CP215Project
             var messagewindow = new Messagewindow6(new Vector2(1085, 250), Color.Black, Color.White, 5);
             messagewindow.Position = new Vector2(415, 830);
             Add(messagewindow);
+
+            song = Song.FromUri("song", new Uri("chinese.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
+            //soundEffect = SoundEffect.FromFile("Flee.wav");
+        }
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            var keyInfo = GlobalKeyboardInfo.Value;
+
+            //Demo เปลี่ยนห้อง
+            if (keyInfo.IsKeyPressed(Keys.End))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                ));
+
+            // Demo Logic ตัวอย่างกรณี Game Over
+            else if (keyInfo.IsKeyPressed(Keys.PageDown))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 1))
+                ));
+
+            if (keyInfo.IsKeyPressed(Keys.End))
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                ));
         }
     }
 }
+

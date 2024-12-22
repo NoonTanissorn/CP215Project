@@ -223,10 +223,10 @@ namespace CP215Project
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
             
-
+            /*
             if(keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
                 placeholder.Toggle();
-
+            */
             //หน้าจอรหัส
             if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
             {

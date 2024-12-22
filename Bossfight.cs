@@ -6,8 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Timers;
 using ThanaNita.MonoGameTnt;
 
@@ -23,6 +25,8 @@ namespace CP215Project
         private float countdownTime = 20f; // Countdown time in seconds
         private Text countdownText; // Text to display the countdown timer
         private bool isGameOver = false; // Flag to indicate if the game is over
+        Song song;
+        SoundEffect soundEffect,soundEffect2;
 
         public Bossfight(ExitNotifier exitNotifier)
         {
@@ -88,6 +92,10 @@ namespace CP215Project
             // Countdown timer text
             countdownText = new Text("Pridi-Regular.ttf", 90, Color.White, countdownTime.ToString("F1")) { Position = new(1300, 50) };
             Add(countdownText);
+            song = Song.FromUri("song", new Uri("bossfight.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("bonk.wav");
+            soundEffect2 = SoundEffect.FromFile("Flee.wav");
         }
 
         private bool IsPlayerDead()
@@ -102,6 +110,7 @@ namespace CP215Project
             int playerDamage = RandomUtil.Next(10, 16);
             bosshp.Value -= playerDamage;
             CheckBattleEnd();
+            soundEffect.Play();
 
             if (bosshp.Value > 0)
             {
@@ -118,9 +127,10 @@ namespace CP215Project
 
             var run = new Text("Pridi-Regular.ttf", 70, Color.Red, "หนี? นี่คือชะตากรรมที่คุณเป็นคนเลือกเอง สู้ต่อไปน้า") { Position = new(500, 700) };
             Add(run);
+            soundEffect2.Play();
 
             await Task.Delay(2000); // Wait for 2 seconds
-
+            
             AddAction(new SequenceAction(
                 Actions.FadeOut(0.5f, this),
                 new RunAction(() => exitNotifier(this, 1))

@@ -108,7 +108,13 @@ namespace CP215Project
                 room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
                 All.Add(room6);
             }
-
+            else if (actor == room6 && code == 0)
+            {
+                room6.Detach();
+                room6 = null;
+                bossfight = new Bossfight(ExitNotifier);
+                All.Add(bossfight);
+            }
 
             else if (actor == gameover)
             {
