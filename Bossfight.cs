@@ -70,7 +70,7 @@ namespace CP215Project
             //-------------------------------------------------//
 
             //ชื่อ
-            var bossname = new Text("Pridi-Regular.ttf", 70, Color.White, "แหนม") { Position = new(500, 30) };
+            var bossname = new Text("Pridi-Regular.ttf", 70, Color.White, "คนจีน") { Position = new(500, 30) };
             Add(bossname);
             
 
@@ -135,7 +135,7 @@ namespace CP215Project
             Add(run);
             soundEffect2.Play();
 
-            await Task.Delay(3000); // Wait for 2 seconds
+            await Task.Delay(3500); // Wait for 2 seconds
             
             AddAction(new SequenceAction(
                 Actions.FadeOut(0.1f, this),

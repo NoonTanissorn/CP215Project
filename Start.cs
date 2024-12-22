@@ -35,12 +35,16 @@ namespace CP215Project
         Song song;
         SoundEffect soundEffect;
 
+        Text name;
+
         public Start(ExitNotifier exitNotifier)
 
         {
             this.exitNotifier = exitNotifier;
 
-            var texture = TextureCache.Get("bg1.jpg");
+            
+
+            var texture = TextureCache.Get("ครูบาช่วยหมาด้วย.png");
             var bosspic = new SpriteActor(texture);
             bosspic.Scale = new Vector2(2.0f, 3.0f);
             bosspic.Position = new Vector2(385, 0);
@@ -49,15 +53,11 @@ namespace CP215Project
             //ปุ่ม
             var button1 = new TextureRegion(TextureCache.Get("startbutt.png"), new RectF(0, 0, 250, 100));
             imageButton1 = new ImageButton(button1);
-            imageButton1.Position = new Vector2(800, 500);
+            imageButton1.Position = new Vector2(800, 650);
             imageButton1.ButtonClicked += imageButton1_ButtonClicked;
             Add(imageButton1);
 
-            var button2 = new TextureRegion(TextureCache.Get("howtobutt.png"), new RectF(0, 0, 320, 100));
-            var imageButton2 = new ImageButton(button2);
-            imageButton2.Position = new Vector2(770, 650);
-            imageButton2.ButtonClicked += imageButton2_ButtonClicked;
-            Add(imageButton2);
+            
 
             var button3 = new TextureRegion(TextureCache.Get("exitbutt.png"), new RectF(0, 0, 250, 100));
             var imageButton3 = new ImageButton(button3);
@@ -68,6 +68,8 @@ namespace CP215Project
             song = Song.FromUri("song", new Uri("menusound.ogg", UriKind.Relative));
             MediaPlayer.Play(song);
             soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
+
+            
         }
 
         private void imageButton1_ButtonClicked(GenericButton button) //Start Game
@@ -78,51 +80,7 @@ namespace CP215Project
                     ));
         }
 
-        //pop up วิธีการเล่น
-        private void imageButton2_ButtonClicked(GenericButton button) //popup กล่องข้อความบอกคำใบ้
-        {
-
-            var keyInfo = GlobalKeyboardInfo.Value;
-            //soundEffect.Play();
-            /*howtoplay = new Howtoplay();
-            howtoplay.Position = new Vector2(500, 200);
-            placeholder.Add(howtoplay);
-            placeholder.Enable = true;
-            if (placeholder.Enable == true)
-                placeholder.Toggle();
-                Add(howtoplay);*/
-
-            
-            if (howtoplay == null)
-            {
-                soundEffect.Play();
-                howtoplay = new Howtoplay();
-                howtoplay.Position = new Vector2(500, 200);
-                placeholder.Add(howtoplay);
-                placeholder.Enable = true;
-                if (placeholder.Enable == true)
-                    placeholder.Toggle();
-                Add(howtoplay);
-            }
-
-            else if  (howtoplay != null && keyInfo.IsKeyPressed(Keys.Enter))
-            {
-                placeholder.Remove(howtoplay);
-                howtoplay = null;
-                placeholder.Enable = false;
-            }
-
-            
-
-            //placeholder.Enable = false;
-
-            /*if (placeholder.Enable != true)
-            {
-                placeholder.Remove(howtoplay);
-                placeholder.Enable = true;
-            }*/
-
-        }
+        
 
         private void imageButton3_ButtonClicked(GenericButton button) //Start Game
         {
@@ -132,27 +90,7 @@ namespace CP215Project
                     ));
         }
 
-        private void ShowHowtoplay() //กล่องข้อความบอกคำใบ้
-        {
-            
-            if (howtoplay == null)
-            {
-                soundEffect.Play();
-                howtoplay = new Howtoplay();
-                howtoplay.Position = new Vector2(500, 200);
-                placeholder.Add(howtoplay);
-                placeholder.Enable = true;
-            }
-        }
-        private void CloseHowtoplay()
-        {
-            if (howtoplay != null)
-            {
-                placeholder.Remove(howtoplay);
-                howtoplay = null;
-                placeholder.Enable = false;
-            }
-        }
+        
 
     }
         
