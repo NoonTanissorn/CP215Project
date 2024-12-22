@@ -12,13 +12,13 @@ namespace CP215Project
 {
     public class Room1 : Actor
     {
-        CameraMan cameraMan;
+        //  CameraMan cameraMan;
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
         private string predefinedPassword = "4420"; // Example password
         private PassWindow passWindow;
         private Messagewindow1 messagewindow;
-        private bool isMessageWindowVisible = true;
+        //private bool isMessageWindowVisible = true;
         private HintWindow hintWindow;
 
         private TileMap tileMap1;
@@ -31,7 +31,7 @@ namespace CP215Project
         public Room1(Vector2 screenSize, ExitNotifier exitNotifier, CameraMan cameraMann)
         {
             this.exitNotifier = exitNotifier;
-        //  this.cameraMan = cameraMan;
+            //  this.cameraMan = cameraMan;
 
             var builder = new TileMapBuilder();
 
@@ -161,7 +161,7 @@ namespace CP215Project
             dog.Position = tileMap1.TileCenter(5, 20);
             //dog.Add(cameraMan);
 
-            var visual = new Actor() { Position = new Vector2(screenSize.X/5, 0) };
+            var visual = new Actor() { Position = new Vector2(screenSize.X / 5, 0) };
             visual.Scale = new Vector2(2.25f, 2.25f);
             visual.Add(tileMap1);
             visual.Add(tileMap2);
@@ -179,7 +179,7 @@ namespace CP215Project
             Add(placeholder);
 
             //Message Window กล่องข้อความหมามีคิ้วด้านล่าง
-            var messagewindow = new Messagewindow1(new Vector2(1085,250), Color.Black, Color.White, 5);
+            var messagewindow = new Messagewindow1(new Vector2(1085, 250), Color.Black, Color.White, 5);
             messagewindow.Position = new Vector2(380, 830);
             Add(messagewindow);
 
@@ -196,7 +196,7 @@ namespace CP215Project
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
 
-
+            /*
             // Prevent character movement if the message window is visible
             if (isMessageWindowVisible)
             {
@@ -207,8 +207,8 @@ namespace CP215Project
                 }
                 return;
             }
-            
-            
+            */
+
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
@@ -222,22 +222,22 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
-            
-            /*
-            if(keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
-                placeholder.Toggle();
-            */
-            //หน้าจอรหัส
-            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
-            {
-                ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
-            }
 
-            if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
-            {
-                soundEffect.Play();
-                ShowHint(); //กดenter โชว์คำถาม
-            }
+
+            if (keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
+                placeholder.Toggle();
+
+            //หน้าจอรหัส
+            /*    if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
+                {
+                    ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
+                }
+
+                if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
+                {
+                    soundEffect.Play();
+                    ShowHint(); //กดenter โชว์คำถาม
+                }*/
 
             var dogTileIndex = TileIndexFromPosition(dog.Position);
 
@@ -320,7 +320,7 @@ namespace CP215Project
                 hintWindow.Position = new Vector2(500, 200);
                 placeholder.Add(hintWindow);
                 placeholder.Enable = true;
-            }    
+            }
         }
         private void CloseHintWindow()
         {
