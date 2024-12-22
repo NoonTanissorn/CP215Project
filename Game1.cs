@@ -20,10 +20,10 @@ namespace CP215Project
 
             cameraMan = new CameraMan(Camera, ScreenSize);
             BackgroundColor = Color.Pink;
-            /*
+            
             room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room1);
-            */
+            
             CollisionDetectionUnit.AddDetector(0, 1);
 
             /* room2 = new Room2(ScreenSize, ExitNotifier, cameraMan);
@@ -49,8 +49,8 @@ namespace CP215Project
             All.Add(bossfight);*/
 
             
-            bossfight = new Bossfight(ExitNotifier);
-            All.Add(bossfight);
+            /*bossfight = new Bossfight(ExitNotifier);
+            All.Add(bossfight);*/
             
 
             
@@ -102,7 +102,13 @@ namespace CP215Project
                 room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
                 All.Add(room6);
             }
-
+            else if (actor == room6 && code == 0)
+            {
+                room6.Detach();
+                room6 = null;
+                bossfight = new Bossfight(ExitNotifier);
+                All.Add(bossfight);
+            }
 
             else if (actor == gameover)
             {

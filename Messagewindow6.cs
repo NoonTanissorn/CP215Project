@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using ThanaNita.MonoGameTnt;
 
 namespace CP215Project
@@ -28,14 +30,15 @@ namespace CP215Project
             // list บทพูด
             dialogLines = new List<(string Message, string ImagePath)>
             {
-                ("ชื่อคน: \nหมาโง่ แกทำให้ฉันดูแย่", "wrong.png"),
+                ("คนจีน: \nเจ้าหมาโง่ ลื้อทำให้อั๊วดูแย่", "chineseguy.png"),
                 ("เจ้าหมา: \nแกเป็นใคร อย่าเข้ามานะ!", "dogdog.png"),
-                ("ชื่อคน: \nกำลังหิวอยู่พอดี", "wrong.png"),
+                ("คนจีน: \nกำลังหิวอยู่พอดี", "chineseguy.png"),
                 ("เจ้าหมา: \nครูบาช่วยหมาด้วยยยยยยยยยยยยยยย", "dogdog.png"),
             };
 
             currentIndex = 0; //ลำดับบทพูด
         }
+
 
         protected override void DrawSelf(DrawTarget target, DrawState state)
         {
@@ -51,7 +54,7 @@ namespace CP215Project
             if (currentIndex >= dialogLines.Count) return; //หากข้อความหมดแล้ว currentIndex เกินจำนวน dialogLines จะหยุดทำงาน
 
             var currentLine = dialogLines[currentIndex]; //แสดงบทพูดที่อยู่ใน list บทพูด
-        
+
             // สร้าง text แสดงข้อความ
             if (text == null)
             {
@@ -59,8 +62,7 @@ namespace CP215Project
                 text.Position = new Vector2(300, 40);
                 Add(text);
             }
-            text.AddAction(new TextAnimation(text, currentLine.Message, 45)); 
-
+            text.AddAction(new TextAnimation(text, currentLine.Message, 30));
             if (characterImage != null)
             {
                 Remove(characterImage);

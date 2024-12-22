@@ -166,8 +166,8 @@ namespace CP215Project
 
             Add(visual);
 
-            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
-            //MediaPlayer.Play(song);
+            song = Song.FromUri("song", new Uri("Here We Are.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
             soundEffect = SoundEffect.FromFile("Flee.wav");
 
         }

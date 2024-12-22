@@ -176,8 +176,8 @@ namespace CP215Project
             sorter.Add(tileMap3);
             sorter.Add(dog);
 
-            song = Song.FromUri("song", new Uri("Undertale-OST-Empty-House.ogg", UriKind.Relative));
-            //MediaPlayer.Play(song);
+            song = Song.FromUri("song", new Uri("aot-sound.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
             soundEffect = SoundEffect.FromFile("Flee.wav");
 
             int tileMapWidth = 100 * (int)tileMap1.TileSize.X;
