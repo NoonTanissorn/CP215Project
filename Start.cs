@@ -29,7 +29,7 @@ namespace CP215Project
         SoundEffect soundEffect;
         private Howtoplay howtoplay;
 
-        public Start()
+        public Start(ExitNotifier exitNotifier)
 
         {
             var texture = TextureCache.Get("bg1.jpg");
@@ -41,17 +41,17 @@ namespace CP215Project
 
             var button1 = new TextureRegion(TextureCache.Get("startbutt.png"), new RectF(0, 0, 250, 100));
             var imageButton1 = new ImageButton(button1);
-            imageButton1.Position = new Vector2(500, 700);
+            imageButton1.Position = new Vector2(800, 500);
             Add(imageButton1);
 
             var button2 = new TextureRegion(TextureCache.Get("howtobutt.png"), new RectF(0, 0, 320, 100));
             var imageButton2 = new ImageButton(button2);
-            imageButton2.Position = new Vector2(800, 800);
+            imageButton2.Position = new Vector2(770, 650);
             Add(imageButton2);
 
             var button3 = new TextureRegion(TextureCache.Get("exitbutt.png"), new RectF(0, 0, 250, 100));
             var imageButton3 = new ImageButton(button3);
-            imageButton3.Position = new Vector2(400, 800);
+            imageButton3.Position = new Vector2(800, 800);
             Add(imageButton3);
         }
 
