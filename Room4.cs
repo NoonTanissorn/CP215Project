@@ -212,6 +212,7 @@ namespace CP215Project
             var keyInfo = GlobalKeyboardInfo.Value;
 
             //Demo เปลี่ยนห้อง
+            /*
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
@@ -224,6 +225,7 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
+            */
 
             /*
             if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
@@ -231,6 +233,7 @@ namespace CP215Project
                 ShowMiniGame(); //กดenter โชว์เครื่องกดรหัส
             }
             */
+
             // Get the dog's current position
             var dogTileIndex = TileIndexFromPosition(dog.Position);
 

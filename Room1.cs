@@ -210,6 +210,7 @@ namespace CP215Project
             */
 
             //Demo เปลี่ยนห้อง
+            /*
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),

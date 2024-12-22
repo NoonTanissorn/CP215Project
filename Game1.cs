@@ -71,10 +71,16 @@ namespace CP215Project
 
         private void ExitNotifier(Actor actor, int code)
         {
+            /*
+             * 0 = End normal Flow
+             * 1 = Game Over
+             * 2 = Exit the game
+             */
             if (actor == null)
                 return;
 
             //จบหน้าตัวเอง ให้เรียหหน้าต่อไป
+
             if (actor == start && code == 0)
             {
                 start.Detach();
@@ -82,6 +88,7 @@ namespace CP215Project
                 room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
                 All.Add(room1);
             }
+
             if (actor == room1 && code == 0)
             {
                 room1.Detach();
@@ -155,6 +162,13 @@ namespace CP215Project
                 actor = null;
                 gameover = new GameOverScreen(ScreenSize, ExitNotifier);
                 All.Add(gameover);
+            }
+
+            else if (code == 2)
+            {
+                actor.Detach();
+                actor = null;
+                this.Exit();
             }
         }
         //commit
