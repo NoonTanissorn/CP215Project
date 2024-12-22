@@ -151,13 +151,20 @@ namespace CP215Project
             }
         }
 
-        private void CheckBattleEnd()
+        private async void CheckBattleEnd()
         {
             if (bosshp.Value <= 0)
             {
                 var win = new Text("Pridi-Regular.ttf", 70, Color.White, "บ๊ายบาย เจ้ามนุษย์โง่~") { Position = new(750, 700) };
                 Add(win);
                 isGameOver = true; // Set the game over flag
+
+                await Task.Delay(2000);
+
+                AddAction(new SequenceAction(
+                                Actions.FadeOut(0.5f, this),
+                                new RunAction(() => exitNotifier(this, 0))
+                ));
             }
         }
 

@@ -43,11 +43,11 @@ namespace CP215Project
             /*room6 = new Room6(ScreenSize, ExitNotifier, cameraMan);
             All.Add(room6);*/
 
-            start = new Start( ExitNotifier);
+            /*start = new Start( ExitNotifier);
             All.Add(start);
-
-            /*end = new End(ExitNotifier);
-            All.Add(end);*/
+            */
+            end = new End(ExitNotifier);
+            All.Add(end);
 
 
             /*
@@ -75,6 +75,13 @@ namespace CP215Project
                 return;
 
             //จบหน้าตัวเอง ให้เรียหหน้าต่อไป
+            if (actor == start && code == 0)
+            {
+                start.Detach();
+                start = null;
+                room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
+                All.Add(room1);
+            }
             if (actor == room1 && code == 0)
             {
                 room1.Detach();
@@ -118,6 +125,20 @@ namespace CP215Project
                 bossfight = new Bossfight(ExitNotifier);
                 All.Add(bossfight);
             }
+            else if (actor == bossfight && code == 0)
+            {
+                bossfight.Detach();
+                bossfight = null;
+                end = new End(ExitNotifier);
+                All.Add(end);
+            }
+            else if (actor == end)
+            {
+                end.Detach();
+                end = null;
+                room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
+                All.Add(room1);
+            }
 
             else if (actor == gameover)
             {
@@ -125,7 +146,7 @@ namespace CP215Project
                 gameover = null;
                 room1 = new Room1(ScreenSize, ExitNotifier, cameraMan);
                 All.Add(room1);
-            }
+            }   
 
             //หน้าอื่นส่ง Game Over มา จะส่ง Code 1
             else if (code == 1)

@@ -195,7 +195,7 @@ namespace CP215Project
             var keyInfo = GlobalKeyboardInfo.Value;
 
             //Demo เปลี่ยนห้อง
-            if (keyInfo.IsKeyPressed(Keys.End))
+            if (keyInfo.IsKeyPressed(Keys.Enter))
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 0))
@@ -206,12 +206,6 @@ namespace CP215Project
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
-                ));
-
-            if (keyInfo.IsKeyPressed(Keys.End))
-                AddAction(new SequenceAction(
-                                Actions.FadeOut(0.5f, this),
-                                new RunAction(() => exitNotifier(this, 0))
                 ));
         }
     }

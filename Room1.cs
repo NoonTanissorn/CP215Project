@@ -223,22 +223,6 @@ namespace CP215Project
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
 
-
-            if (keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
-                placeholder.Toggle();
-
-            //หน้าจอรหัส
-            /*    if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
-                {
-                    ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
-                }
-
-                if (keyInfo.IsKeyPressed(Keys.H)) // Replace with the actual key for interaction
-                {
-                    soundEffect.Play();
-                    ShowHint(); //กดenter โชว์คำถาม
-                }*/
-
             var dogTileIndex = TileIndexFromPosition(dog.Position);
 
             // Check the tile number at that position
