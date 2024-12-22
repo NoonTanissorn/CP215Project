@@ -56,11 +56,6 @@ namespace CP215Project
             */
 
             /*
-            bossfight = new Bossfight(new Vector2(1080, 1080), Color.Black, Color.White, 0);
-            bossfight.Position = new Vector2(415, 0);
-            All.Add(bossfight);*/
-
-            /*
             bossfight = new Bossfight(ExitNotifier);
             All.Add(bossfight);
             */

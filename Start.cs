@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Timers;
 using ThanaNita.MonoGameTnt;
 
@@ -26,10 +27,12 @@ namespace CP215Project
         //ปุ่ม
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
-        SoundEffect soundEffect;
+
         private Howtoplay howtoplay;
         private ImageButton imageButton1;
 
+        Song song;
+        SoundEffect soundEffect;
 
         public Start(ExitNotifier exitNotifier)
 
@@ -60,6 +63,10 @@ namespace CP215Project
             imageButton3.Position = new Vector2(800, 800);
             imageButton3.ButtonClicked += imageButton3_ButtonClicked;
             Add(imageButton3);
+
+            song = Song.FromUri("song", new Uri("menusound.ogg", UriKind.Relative));
+            MediaPlayer.Play(song);
+            soundEffect = SoundEffect.FromFile("Paper-Sound-Effect.wav");
         }
 
         private void imageButton1_ButtonClicked(GenericButton button) //Start Game

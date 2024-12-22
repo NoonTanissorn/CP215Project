@@ -46,10 +46,10 @@ namespace CP215Project
             //-------------------------------------------------//
 
             //รูปภาพบอส
-            var texture = TextureCache.Get("wrong.png");
+            var texture = TextureCache.Get("doghit1.png");
             var bosspic = new SpriteActor(texture);
-            bosspic.Scale = new Vector2(0.5f, 0.5f);
-            bosspic.Position = new Vector2(720, 180);
+            bosspic.Scale = new Vector2(0.4f, 0.4f);
+            bosspic.Position = new Vector2(540, 150);
             Add(bosspic);
 
             //-------------------------------------------------//
@@ -125,14 +125,20 @@ namespace CP215Project
             if (IsPlayerDead() || isGameOver) return;
             isRunButtonClicked = true; // Set the flag to indicate the run button has been clicked
 
-            var run = new Text("Pridi-Regular.ttf", 70, Color.Red, "หนี? นี่คือชะตากรรมที่คุณเป็นคนเลือกเอง สู้ต่อไปน้า") { Position = new(500, 700) };
+            var texture = TextureCache.Get("chinesesmile.png");
+            var bosspic = new SpriteActor(texture);
+            bosspic.Scale = new Vector2(0.4f, 0.4f);
+            bosspic.Position = new Vector2(540, 150);
+            Add(bosspic);
+
+            var run = new Text("Pridi-Regular.ttf", 70, Color.Red, "หนี? นี่คือชะตากรรมที่คุณเป็นคนเลือกเอง สู้ต่อไปน้า") { Position = new(500, 745) };
             Add(run);
             soundEffect2.Play();
 
-            await Task.Delay(2000); // Wait for 2 seconds
+            await Task.Delay(3000); // Wait for 2 seconds
             
             AddAction(new SequenceAction(
-                Actions.FadeOut(0.5f, this),
+                Actions.FadeOut(0.1f, this),
                 new RunAction(() => exitNotifier(this, 1))
             ));
         }
@@ -143,6 +149,17 @@ namespace CP215Project
             {
                 int bossDamage = RandomUtil.Next(1, 6);
                 //playerhp.Value -= bossDamage;
+
+                var texture = TextureCache.Get("doghit2.png");
+                var bosspic = new SpriteActor(texture);
+                bosspic.Scale = new Vector2(0.4f, 0.4f);
+                bosspic.Position = new Vector2(540, 150);
+                Add(bosspic);
+
+                // Wait for a short duration before changing the image back
+                await Task.Delay(100);
+
+                Remove(bosspic);
             }
 
             if (playerhp <= 0)
@@ -155,15 +172,21 @@ namespace CP215Project
         {
             if (bosshp.Value <= 0)
             {
-                var win = new Text("Pridi-Regular.ttf", 70, Color.White, "บ๊ายบาย เจ้ามนุษย์โง่~") { Position = new(750, 700) };
+                var win = new Text("Pridi-Regular.ttf", 70, Color.White, "บ๊ายบาย เจ้ามนุษย์โง่~") { Position = new(750, 745) };
                 Add(win);
+
                 isGameOver = true; // Set the game over flag
+                var textureBack = TextureCache.Get("doghit3.png");
+                var bosspicBack = new SpriteActor(textureBack);
+                bosspicBack.Scale = new Vector2(0.4f, 0.4f);
+                bosspicBack.Position = new Vector2(540, 150);
+                Add(bosspicBack);
 
                 await Task.Delay(2000);
 
                 MediaPlayer.Stop();
                 AddAction(new SequenceAction(
-                                Actions.FadeOut(0.5f, this),
+                                Actions.FadeOut(0.2f, this),
                                 new RunAction(() => exitNotifier(this, 0))
                 ));
             }

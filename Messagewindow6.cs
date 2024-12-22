@@ -31,9 +31,12 @@ namespace CP215Project
             dialogLines = new List<(string Message, string ImagePath)>
             {
                 ("คนจีน: \nเจ้าหมาโง่ ลื้อทำให้อั๊วดูแย่", "chineseguy.png"),
+                ("คนจีน: \nลื้อคิดว่าลื้อจะหนีไปไหนหน่ะ", "chineseguy.png"),
                 ("เจ้าหมา: \nแกเป็นใคร อย่าเข้ามานะ!", "dogdog.png"),
-                ("คนจีน: \nกำลังหิวอยู่พอดี", "chineseguy.png"),
+                ("คนจีน: \nรู้สึกหิวขึ้นมาแล้วสิ", "chineseguy.png"),
+                ("เจ้าหมา: \nอย่าเข้ามานะ", "dogdog.png"),
                 ("เจ้าหมา: \nครูบาช่วยหมาด้วยยยยยยยยยยยยยยย", "dogdog.png"),
+                ("กด [enter] เพิ่อสู้กับคนจีน", "dogdog.png"),
             };
 
             currentIndex = 0; //ลำดับบทพูด
