@@ -6,7 +6,7 @@ using ThanaNita.MonoGameTnt;
 
 
 namespace CP215Project.Asset
-{/*
+{
     internal class Howtoplay : Panel
     {
         public Howtoplay()
@@ -28,5 +28,5 @@ namespace CP215Project.Asset
         {
             return new Text("Pridi-Regular.ttf", 50, Color.Black, s);
         }
-    }*/
+    }
 }

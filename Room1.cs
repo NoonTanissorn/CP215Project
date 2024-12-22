@@ -12,13 +12,13 @@ namespace CP215Project
 {
     public class Room1 : Actor
     {
-    //  CameraMan cameraMan;
+        CameraMan cameraMan;
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
         private string predefinedPassword = "4420"; // Example password
         private PassWindow passWindow;
         private Messagewindow1 messagewindow;
-        //private bool isMessageWindowVisible = true;
+        private bool isMessageWindowVisible = true;
         private HintWindow hintWindow;
 
         private TileMap tileMap1;
@@ -195,7 +195,7 @@ namespace CP215Project
         {
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
-            
+
 
             // Prevent character movement if the message window is visible
             if (isMessageWindowVisible)

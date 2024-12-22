@@ -17,6 +17,7 @@ using ThanaNita.MonoGameTnt;
 
 
 
+
 namespace CP215Project
 {
     public class Start : Actor
@@ -26,7 +27,7 @@ namespace CP215Project
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
         SoundEffect soundEffect;
-        // private Howtoplay howtoplay;
+        private Howtoplay howtoplay;
 
         public Start()
 
@@ -37,12 +38,12 @@ namespace CP215Project
             bosspic.Position = new Vector2(385, 0);
             Add(bosspic);
 
-            /*
+
             var button1 = new TextureRegion(TextureCache.Get("startbutt.png"), new RectF(0, 0, 250, 100));
             var imageButton1 = new ImageButton(button1);
             imageButton1.Position = new Vector2(500, 700);
             Add(imageButton1);
-            
+
             var button2 = new TextureRegion(TextureCache.Get("howtobutt.png"), new RectF(0, 0, 320, 100));
             var imageButton2 = new ImageButton(button2);
             imageButton2.Position = new Vector2(800, 800);
@@ -50,27 +51,27 @@ namespace CP215Project
 
             var button3 = new TextureRegion(TextureCache.Get("exitbutt.png"), new RectF(0, 0, 250, 100));
             var imageButton3 = new ImageButton(button3);
-            imageButton2.Position = new Vector2(400, 800);
+            imageButton3.Position = new Vector2(400, 800);
             Add(imageButton3);
-        
+        }
 
 
-         //pop up วิธีการเล่น
-         private void popup(GenericButton button) //กล่องข้อความบอกคำใบ้
+        //pop up วิธีการเล่น
+        private void popup(GenericButton button) //กล่องข้อความบอกคำใบ้
 
         {
             var keyInfo = GlobalKeyboardInfo.Value;
-                soundEffect.Play();
-                howtoplay = new Howtoplay();
-                howtoplay.Position = new Vector2(500, 200);
-                placeholder.Add(howtoplay);
-                placeholder.Enable = true;
-            
+            soundEffect.Play();
+            howtoplay = new Howtoplay();
+            howtoplay.Position = new Vector2(500, 200);
+            placeholder.Add(howtoplay);
+            placeholder.Enable = true;
+
 
         }
 
 
 
-    }*/
+    }
         
 }
