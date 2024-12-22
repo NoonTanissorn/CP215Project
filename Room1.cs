@@ -194,9 +194,9 @@ namespace CP215Project
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
+            var keyInfo = GlobalKeyboardInfo.Value;
             
 
-            /*
             // Prevent character movement if the message window is visible
             if (isMessageWindowVisible)
             {
@@ -207,7 +207,7 @@ namespace CP215Project
                 }
                 return;
             }
-            */
+            
             
             //Demo เปลี่ยนห้อง
             if (keyInfo.IsKeyPressed(Keys.End))
@@ -228,7 +228,7 @@ namespace CP215Project
                 placeholder.Toggle();
 
             //หน้าจอรหัส
-        /*    if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
+            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
             {
                 ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
             }
@@ -237,7 +237,7 @@ namespace CP215Project
             {
                 soundEffect.Play();
                 ShowHint(); //กดenter โชว์คำถาม
-            }*/
+            }
 
             var dogTileIndex = TileIndexFromPosition(dog.Position);
 
