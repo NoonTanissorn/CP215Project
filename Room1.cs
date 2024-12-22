@@ -210,6 +210,7 @@ namespace CP215Project
             */
 
             //Demo เปลี่ยนห้อง
+            /*
             if (keyInfo.IsKeyPressed(Keys.End))
                 AddAction(new SequenceAction(
                                 Actions.FadeOut(0.5f, this),
@@ -222,13 +223,16 @@ namespace CP215Project
                                 Actions.FadeOut(0.5f, this),
                                 new RunAction(() => exitNotifier(this, 1))
                     ));
-
+            
 
             if (keyInfo.IsKeyPressed(Keys.Space))  //กดspaceคุยกะหมา
                 placeholder.Toggle();
+            */
+
 
             //หน้าจอรหัส
-            /*    if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
+            /*
+            if (keyInfo.IsKeyPressed(Keys.Enter)) // Replace with the actual key for interaction
                 {
                     ShowPassWindow(); //กดenter โชว์เครื่องกดรหัส
                 }
@@ -237,7 +241,8 @@ namespace CP215Project
                 {
                     soundEffect.Play();
                     ShowHint(); //กดenter โชว์คำถาม
-                }*/
+                }
+            */
 
             var dogTileIndex = TileIndexFromPosition(dog.Position);
 

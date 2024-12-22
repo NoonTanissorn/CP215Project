@@ -25,9 +25,9 @@ namespace CP215Project
                 Position = new Vector2(450, 150),
                 Scale = scale
             };
-            var text = new Text("Pridi-Regular.ttf", 100, Color.White, "Game Over")
+            var text = new Text("Pridi-Regular.ttf", 100, Color.White, "Game Over. Press [Space] to Continue")
             {
-                Position = new Vector2(800, 850)
+                Position = new Vector2(410, 850)
             };
             Add(panel);
             Add(textureActor);
@@ -45,16 +45,6 @@ namespace CP215Project
             base.Act(deltaTime);
             var keyInfo = GlobalKeyboardInfo.Value;
             if (keyInfo.IsKeyPressed(Keys.Space))
-            {
-                if (MediaPlayer.State == MediaState.Stopped)
-                    MediaPlayer.Play(song);
-                else if (MediaPlayer.State == MediaState.Playing)
-                    MediaPlayer.Pause();
-                else if (MediaPlayer.State == MediaState.Paused)
-                    MediaPlayer.Resume();
-            }
-
-            if (keyInfo.IsKeyPressed(Keys.End))
             {
                 MediaPlayer.Stop();
                 AddAction(new SequenceAction(
